@@ -27,7 +27,7 @@ float       kinnect_to_left = -800;
 float       kinnect_to_right = 800;
 
 // beats
-int[][]     beats = { { 1,1,1,1 }, { 1,0,1,0 }, {1,1,0,0}, {0,0,1,1} };
+int[][]     beats = { {1,1,1,1}, {1,0,1,0}, {1,1,0,0}, {0,0,1,1} };
 
 // load font
 PFont font;
