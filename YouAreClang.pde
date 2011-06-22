@@ -7,9 +7,11 @@ import arb.soundcipher.*;
 import arb.soundcipher.constants.*;
 import SimpleOpenNI.*;
 import controlP5.*;
+import fullscreen.*;
 
 SimpleOpenNI kinect;
 ControlP5 controlP5;
+FullScreen fs;
 
 int         w = 1440;
 int         h = 900;
@@ -21,13 +23,15 @@ ArrayList   lightList;
 color       bgc = color(0);
 
 // calibration settings
-float       kinnect_to_front = 1000;
-float       kinnect_to_back = 4000;
-float       kinnect_to_left = -800;
-float       kinnect_to_right = 800;
+float       kinnect_to_front = 2380;
+float       kinnect_to_back = 4144;
+float       kinnect_to_left = 1088;
+float       kinnect_to_right = -1296;
 
 // beats
-int[][]     beats = { {1,1,1,1}, {1,0,1,0}, {1,1,0,0}, {0,0,1,1} };
+//int[][]   beats = { {1,1,1,1}, {1,0,1,0}, {1,1,0,0}, {0,0,1,1} };
+double[][]  beats = { {1,0.3,1,0.3}, {03,0,0.5,0.5}, {1,1,0,0.2}, {0.5,0,1,1} };
+
 
 // load font
 PFont font;
@@ -39,7 +43,10 @@ void setup() {
   
   frameRate(60);
   
-  font = loadFont("ArialMT-48.vlw"); 
+  font = loadFont("ArialMT-48.vlw");
+  
+  fs = new FullScreen(this); 
+  fs.enter();
   
   /* ---------------------------------------------------------------------------- */
 
@@ -53,8 +60,8 @@ void setup() {
   showControls = false;
   
   Radio r = controlP5.addRadio("projection",40,40);
-  r.add("Frontprojection",0);
   r.add("Sideprojection",1);
+  r.add("Frontprojection",0);
   
   controlP5.addSlider("kinnect_to_front",0,7000,kinnect_to_front,40,80,250,20).setLabel("Kinect -> front");
   controlP5.addSlider("kinnect_to_back",0,7000,kinnect_to_back,40,110,250,20).setLabel("Kinect -> back");
@@ -128,7 +135,7 @@ void draw() {
   
         light.display(theX, theY);
 
-        if(frameCount%10 == 0) {
+        if(frameCount%10 == 0) { // 5
           
           light.soundUpdate();
         }
@@ -149,7 +156,7 @@ void draw() {
   
   float section_height = height/sections;
   
-  stroke(100);
+  stroke(255);
   strokeWeight(.5);
   
   for(int i = 1; i < sections; i++) {

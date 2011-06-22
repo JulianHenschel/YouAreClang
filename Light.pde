@@ -52,13 +52,14 @@ class Light {
   // play sound
   void soundUpdate() {
     
+    float pitch = map(position.x, kinnect_to_left, kinnect_to_right, 10, 117);
+    
     if(currentBeatSection > 0) {
     
-      if(beats[currentBeatSection-1][currentBeatIndex] == 1) {
-        
-        float pitch = map(position.x, kinnect_to_left, kinnect_to_right, 10, 117);
-        
-        sc.playNote(pitch, 100, 0.5);
+      //if(beats[currentBeatSection-1][currentBeatIndex] == 1) {
+     if(beats[currentBeatSection-1][currentBeatIndex] > 0.0) {   
+        sc.playNote(pitch, 100, beats[currentBeatSection-1][currentBeatIndex]);
+       //sc.playNote(pitch, 100, 0.5);
         ps.reset();
       }
     }
