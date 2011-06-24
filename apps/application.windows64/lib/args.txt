@@ -1,3 +1,0 @@
- -Xms64m -Xmx1024m
-YouAreClang
-YouAreClang.jar,core.jar,gluegen-rt.jar,jogl.jar,opengl.jar,SoundCipher.jar,SimpleOpenNI.jar,controlP5.jar

@@ -56,19 +56,18 @@ class Light {
     
     if(currentBeatSection > 0) {
     
-      //if(beats[currentBeatSection-1][currentBeatIndex] == 1) {
-     if(beats[currentBeatSection-1][currentBeatIndex] > 0.0) {   
+      if(beats[currentBeatSection-1][currentBeatIndex] > 0.0) {
+         
         sc.playNote(pitch, 100, beats[currentBeatSection-1][currentBeatIndex]);
-       //sc.playNote(pitch, 100, 0.5);
         ps.reset();
       }
     }
 
-    currentBeatIndex++;
+  currentBeatIndex++;
     
-    if(currentBeatIndex > 3) {
-      currentBeatIndex = 0;
-    }
+  if(currentBeatIndex > 3) {
+    currentBeatIndex = 0;
+  }
     
   }
   

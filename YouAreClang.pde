@@ -32,19 +32,13 @@ float       kinnect_to_right = -1296;
 //int[][]   beats = { {1,1,1,1}, {1,0,1,0}, {1,1,0,0}, {0,0,1,1} };
 double[][]  beats = { {1,0.3,1,0.3}, {03,0,0.5,0.5}, {1,1,0,0.2}, {0.5,0,1,1} };
 
-
-// load font
-PFont font;
-
 void setup() {
 
   size(w,h,OPENGL);
   hint(ENABLE_OPENGL_4X_SMOOTH);
   
   frameRate(60);
-  
-  font = loadFont("ArialMT-48.vlw");
-  
+    
   fs = new FullScreen(this); 
   fs.enter();
   
