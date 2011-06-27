@@ -63,11 +63,11 @@ class Light {
       }
     }
 
-  currentBeatIndex++;
+    currentBeatIndex++;
     
-  if(currentBeatIndex > 3) {
-    currentBeatIndex = 0;
-  }
+    if(currentBeatIndex > 3) {
+      currentBeatIndex = 0;
+    }
     
   }
   

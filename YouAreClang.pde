@@ -125,7 +125,7 @@ void draw() {
         theY = map(pos.z, kinnect_to_front, kinnect_to_back, -height/2, height/2);
       }
       
-      if (pos.z < kinnect_to_back) {
+      if (pos.z < kinnect_to_back && pos.x > -width/2 && pos.x > width/2) {
   
         light.display(theX, theY);
 
