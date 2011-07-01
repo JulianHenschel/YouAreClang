@@ -96,15 +96,6 @@ void draw() {
   // total user count from simpleOpenNI
   int userCount = kinect.getNumberOfUsers();
   
-  /*
-  println(userCount);
-  println('*');
-  println(bassCnt);
-  println(middleCnt);
-  println(highCnt);
-  println('*');
-  */
-  
   /* ---------------------------------------------------------------------------- */
   
   // push transformation matrix
@@ -143,15 +134,12 @@ void draw() {
       }
       
       if (pos.z < kinect_to_back) {
-      
-        //if(theX < -width/2 && theX > width/2) {
-          
-          light.display(theX, theY);
+                
+        light.display(theX, theY);
   
-          if(frameCount%10 == 0) {
-            light.soundUpdate();
-          }
-        //}
+        if(frameCount%10 == 0) {
+          light.soundUpdate();
+        }
       }
     }
     
@@ -222,6 +210,9 @@ void onLostUser(int userId) {
         case 2:
           highCnt -= 1;
           break;
+        default:
+          // do nothing
+          break; 
       }
       
       lightList.remove(i);

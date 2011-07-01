@@ -36,40 +36,43 @@ class Light {
     if(bassCnt == 0 ) {
       
       myClang = (Clang) clangBassList.get(int(random(clangBassList.size()-1)));
-      bassCnt = bassCnt + 1;
+      bassCnt += 1;
       soundType = 0;
     
     }else if(bassCnt > 0 && middleCnt == 0) {
       
       myClang = (Clang) clangMiddleList.get(int(random(clangMiddleList.size()-1)));
-      middleCnt = middleCnt + 1;
+      middleCnt += 1;
       soundType = 1;
     
     }else if(bassCnt > 0 && middleCnt > 0 && highCnt == 0) {
       
       myClang = (Clang) clangHighList.get(int(random(clangHighList.size()-1)));
-      highCnt = highCnt + 1;
+      highCnt += 1;
       soundType = 2;
       
     }else {
       
-      int bla = (int) random(0,2);
+      int soundId = (int) random(0,2);
       
-      switch(bla) {
+      switch(soundId) {
         case 0:
           myClang = (Clang) clangBassList.get(int(random(clangBassList.size()-1)));
-          bassCnt = bassCnt + 1;
+          bassCnt += 1;
           soundType = 0;
           break;
         case 1:
           myClang = (Clang) clangMiddleList.get(int(random(clangMiddleList.size()-1)));
-          middleCnt = middleCnt + 1;
+          middleCnt += 1;
           soundType = 1;
           break;
         case 2:
           myClang = (Clang) clangHighList.get(int(random(clangHighList.size()-1)));
-          highCnt = highCnt + 1;
+          highCnt += 1;
           soundType = 2;
+          break;
+        default:
+          // do nothing
           break;
       }
     }
@@ -139,10 +142,8 @@ class Light {
           pitchmax = 95;
       } 
       
-      //pitch = map(position.x, -800, 800, pitchmin,  pitchmax); 
-
-      
-      pitch = map(position.x, -900, 800, 0, 127);
+      //pitch = map(position.x, -800, 800, pitchmin,  pitchmax);
+      pitch = map(position.x, -800, 800, 0, 127);
       
       if(beats[currentBeatSection-1][currentBeatIndex] >= 0.0) {
           
