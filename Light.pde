@@ -14,11 +14,13 @@ class Light {
   int         instrument,userId;
   int         currentBeatSection = 0;
   int         currentBeatIndex = 0;
+  int         soundType;
     
   boolean     drawLightWay = true;
   
   SoundCipher sc;
   particleSystem ps;
+  Clang myClang;
   
   // light constructor   
   Light(int id) {
@@ -28,10 +30,49 @@ class Light {
     
     userId = id;
     
-    ps = new particleSystem(position.x,position.y,c);
-    
+    ps = new particleSystem(position.x,position.y,c);    
     sc = new SoundCipher();
-    sc.instrument(random(127));
+
+    if(bassCnt == 0 ) {
+      
+      myClang = (Clang) clangBassList.get(int(random(clangBassList.size()-1)));
+      bassCnt = bassCnt + 1;
+      soundType = 0;
+    
+    }else if(bassCnt > 0 && middleCnt == 0) {
+      
+      myClang = (Clang) clangMiddleList.get(int(random(clangMiddleList.size()-1)));
+      middleCnt = middleCnt + 1;
+      soundType = 1;
+    
+    }else if(bassCnt > 0 && middleCnt > 0 && highCnt == 0) {
+      
+      myClang = (Clang) clangHighList.get(int(random(clangHighList.size()-1)));
+      highCnt = highCnt + 1;
+      soundType = 2;
+      
+    }else {
+      
+      int bla = (int) random(0,2);
+      
+      switch(bla) {
+        case 0:
+          myClang = (Clang) clangBassList.get(int(random(clangBassList.size()-1)));
+          bassCnt = bassCnt + 1;
+          soundType = 0;
+          break;
+        case 1:
+          myClang = (Clang) clangMiddleList.get(int(random(clangMiddleList.size()-1)));
+          middleCnt = middleCnt + 1;
+          soundType = 1;
+          break;
+        case 2:
+          myClang = (Clang) clangHighList.get(int(random(clangHighList.size()-1)));
+          highCnt = highCnt + 1;
+          soundType = 2;
+          break;
+      }
+    }
     
     lightWay = new ArrayList();
   }
@@ -52,14 +93,64 @@ class Light {
   // play sound
   void soundUpdate() {
     
-    float pitch = map(position.x, kinnect_to_left, kinnect_to_right, 10, 117);
+    float pitchmin = 0;
+    float pitchmax = 0;
+    float pitch = 0 ;
     
     if(currentBeatSection > 0) {
-    
-      if(beats[currentBeatSection-1][currentBeatIndex] > 0.0) {
-         
-        sc.playNote(pitch, 100, beats[currentBeatSection-1][currentBeatIndex]);
+      
+      if (myClang.pitchRange=="A") {
+          pitchmin = 0;
+          pitchmax = 11;
+      }
+          
+      if (myClang.pitchRange=="B") {
+          pitchmin = 12;
+          pitchmax = 23;
+      }
+  
+      if (myClang.pitchRange=="C") {
+          pitchmin = 24;
+          pitchmax = 35;
+      }
+        
+      if (myClang.pitchRange=="D") {
+          pitchmin = 36;
+          pitchmax = 47;
+      }
+          
+      if (myClang.pitchRange=="E") {
+          pitchmin = 48;
+          pitchmax = 59;
+      }
+          
+      if (myClang.pitchRange=="F") { 
+          pitchmin = 60;
+          pitchmax = 71;
+      }       
+       
+      if (myClang.pitchRange=="G") {
+          pitchmin = 72;
+          pitchmax = 83;
+      }
+        
+      if (myClang.pitchRange=="H") {
+          pitchmin = 84;
+          pitchmax = 95;
+      } 
+      
+      //pitch = map(position.x, -800, 800, pitchmin,  pitchmax); 
+
+      
+      pitch = map(position.x, -900, 800, 0, 127);
+      
+      if(beats[currentBeatSection-1][currentBeatIndex] >= 0.0) {
+          
+        //sc.playNote(0,0,myClang.midiInstrument,pitch, 100, beats[currentBeatSection-1][currentBeatIndex], 0.8, 64);          
+        
+        sc.playNote(pitch,100,0.5);
         ps.reset();
+        
       }
     }
 
@@ -85,7 +176,7 @@ class Light {
     }else {
       currentBeatSection = 0;
     }
-    
+       
   }
   
   // display the light on current position

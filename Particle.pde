@@ -90,4 +90,3 @@ float findAngle( float x, float y ) {
   }
   return theta;
 }
-
