@@ -53,7 +53,7 @@ class Light {
       
     }else {
       
-      int soundId = (int) random(0,2);
+      int soundId = int(random(0,2));
       
       switch(soundId) {
         case 0:
@@ -142,14 +142,14 @@ class Light {
           pitchmax = 95;
       } 
       
-      //pitch = map(position.x, -800, 800, pitchmin,  pitchmax);
-      pitch = map(position.x, -800, 800, 0, 127);
+      pitch = map(position.x, -800, 800, pitchmin,  pitchmax);
+      //pitch = map(position.x, -800, 800, 0, 127);
       
       if(beats[currentBeatSection-1][currentBeatIndex] >= 0.0) {
           
-        //sc.playNote(0,0,myClang.midiInstrument,pitch, 100, beats[currentBeatSection-1][currentBeatIndex], 0.8, 64);          
-        
         sc.playNote(pitch,100,0.5);
+        //sc.playNote(0,0,myClang.midiInstrument,pitch, 100, beats[currentBeatSection-1][currentBeatIndex], 0.8, 64);
+        
         ps.reset();
         
       }
@@ -190,7 +190,7 @@ class Light {
     setBeatSection();
     drawLightWay();
     
-    ps.update(position.x,position.y,c);
+    ps.update(position.x, position.y, c);
     
     int arc_radius = 120;
     
