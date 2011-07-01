@@ -1,4 +1,3 @@
-
 // You Are Clang
 // A project by Julian Henschel, Martin Ecker and Miroslaw Brodzinski (soundfreak)
 // 07/1011
@@ -8,9 +7,11 @@ import arb.soundcipher.*;
 import arb.soundcipher.constants.*;
 import SimpleOpenNI.*;
 import controlP5.*;
+import fullscreen.*;
 
 SimpleOpenNI kinect;
 ControlP5 controlP5;
+FullScreen fs; 
 
 int         w = 1440;
 int         h = 900;
@@ -80,7 +81,11 @@ void setup() {
   kinect.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
   
   /* ---------------------------------------------------------------------------- */
-    
+  
+  Create the fullscreen object
+  fs = new FullScreen(this); 
+  fs.enter(); 
+  
 }
 
 void draw() {
