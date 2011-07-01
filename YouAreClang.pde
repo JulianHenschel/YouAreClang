@@ -138,14 +138,21 @@ void draw() {
         theY = map(pos.z, kinect_to_front, kinect_to_back, -height/2, height/2);
       }
       
+      // TODO
+      // check if users go out on left, right and front
+      
       if (pos.z < kinect_to_back) {
-                
+
         light.display(theX, theY);
   
         if(frameCount%10 == 0) {
           light.soundUpdate();
         }
       }
+      
+      // TODO
+      // delete light object when user go out of scene
+      
     }
     
   }
