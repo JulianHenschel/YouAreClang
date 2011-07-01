@@ -140,13 +140,20 @@ class Light {
       if (myClang.pitchRange=="H") {
           pitchmin = 84;
           pitchmax = 95;
-      } 
+      }
+      
+      // TODO
+      // insert calibration data to pitch (kinect_to_front, etc...)
       
       pitch = map(position.x, -800, 800, pitchmin,  pitchmax);
       //pitch = map(position.x, -800, 800, 0, 127);
       
       if(beats[currentBeatSection-1][currentBeatIndex] >= 0.0) {
-          
+        
+        // TODO
+        // select instrument vom clang object
+        // sc.instrument(myClang.midiInstrument);
+        
         sc.playNote(pitch,100,0.5);
         //sc.playNote(0,0,myClang.midiInstrument,pitch, 100, beats[currentBeatSection-1][currentBeatIndex], 0.8, 64);
         
