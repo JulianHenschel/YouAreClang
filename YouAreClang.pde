@@ -18,6 +18,10 @@ int         h = 900;
 
 int         projection = 0;
 int         sections = 4;
+int         bassCnt = 0;
+int         middleCnt = 0;
+int         highCnt = 0;
+
 boolean     showControls;
 ArrayList   lightList;
 ArrayList   clangBassList;
@@ -31,10 +35,6 @@ float       kinect_to_front = 1764;
 float       kinect_to_back = 3808;
 float       kinect_to_left = -1136;
 float       kinect_to_right = 1296;
-
-int         bassCnt = 0;
-int         middleCnt = 0;
-int         highCnt = 0;
 
 // beats
 double[][]  beats = { { 1,1,1,1 }, { 1,0,1,0 }, {1,1,0,0}, {1,0.5,0.5,1.0} };
