@@ -10,4 +10,4 @@ Ein Video der Installation ist [hier](http://vimeo.com/25454214) verfügbar.
 
 ## Bilder
 
-![test](http://aim.julian-henschel.de/sites/all/themes/aim/logo.png)
+![youareclang](https://github.com/JulianHenschel/YouAreClang/raw/master/pictures/IMG_0632.jpg)
