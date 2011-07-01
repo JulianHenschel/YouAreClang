@@ -12,20 +12,26 @@ public class particle {
   float mass;
    
   particle( float dx, float dy, float V, float A, float M ) {
+    
     x = dx;
     y = dy;
+    
     px = dx;
     py = dy;
+    
     magnitude = V;
     angle = A;
     mass = M;
   }
    
   void reset( float dx, float dy, float V, float A, float M ) {
+    
     x = dx;
     y = dy;
+    
     px = dx;
     py = dy;
+    
     magnitude = V;
     angle = A;
     mass = M;
