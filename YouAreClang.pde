@@ -57,7 +57,7 @@ void setup() {
   
   /* ---------------------------------------------------------------------------- */
   
-  // controlP5 setup
+  // init controlP5 setup
   
   controlP5 = new ControlP5(this);
   showControls = false;
@@ -73,7 +73,7 @@ void setup() {
   
   /* ---------------------------------------------------------------------------- */
   
-  // simpleOpenNI object
+  // init simpleOpenNI object
   
   kinect = new SimpleOpenNI(this);
   kinect.setMirror(true);
@@ -81,6 +81,8 @@ void setup() {
   kinect.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
   
   /* ---------------------------------------------------------------------------- */
+  
+  // init fullscreen object
   
   Create the fullscreen object
   fs = new FullScreen(this); 
