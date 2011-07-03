@@ -152,9 +152,10 @@ class Light {
         
         // TODO
         // select instrument vom clang object
-        // sc.instrument(myClang.midiInstrument);
         
+        sc.instrument(myClang.midiInstrument);
         sc.playNote(pitch,100,0.5);
+        
         //sc.playNote(0,0,myClang.midiInstrument,pitch, 100, beats[currentBeatSection-1][currentBeatIndex], 0.8, 64);
         
         ps.reset();

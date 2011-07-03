@@ -84,7 +84,6 @@ void setup() {
   
   // init fullscreen object
   
-  Create the fullscreen object
   fs = new FullScreen(this); 
   fs.enter(); 
   
