@@ -227,6 +227,7 @@ void onLostUser(int userId) {
       }
       
       lightList.remove(i);
+      break;
     }
   }
   
