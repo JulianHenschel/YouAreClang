@@ -23,6 +23,7 @@ int         middleCnt = 0;
 int         highCnt = 0;
 
 boolean     showControls;
+
 ArrayList   lightList;
 ArrayList   clangBassList;
 ArrayList   clangMiddleList;

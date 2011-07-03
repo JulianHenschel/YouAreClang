@@ -30,8 +30,7 @@ class Light {
     
     userId = id;
     
-    ps = new particleSystem(position.x,position.y,c);    
-    sc = new SoundCipher();
+    ps = new particleSystem(position.x,position.y,c);
 
     if(bassCnt == 0 ) {
       
@@ -52,7 +51,7 @@ class Light {
       soundType = 2;
       
     }else {
-      
+            
       int soundId = int(random(0,2));
       
       switch(soundId) {
@@ -150,8 +149,7 @@ class Light {
       
       if(beats[currentBeatSection-1][currentBeatIndex] >= 0.0) {
         
-        // TODO
-        // select instrument vom clang object
+        sc = new SoundCipher();
         
         sc.instrument(myClang.midiInstrument);
         sc.playNote(pitch,100,0.5);
