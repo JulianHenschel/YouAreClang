@@ -23,6 +23,7 @@ int         middleCnt = 0;
 int         highCnt = 0;
 
 boolean     showControls;
+boolean     debug = true;
 
 ArrayList   lightList;
 ArrayList   clangBassList;
@@ -224,6 +225,12 @@ void onLostUser(int userId) {
         default:
           // do nothing
           break; 
+      }
+      
+      if(debug) {
+        println("*");
+        println("remover userid "+userId);
+        println("*");
       }
       
       lightList.remove(i);
