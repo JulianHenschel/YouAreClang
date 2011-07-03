@@ -151,22 +151,15 @@ class Light {
         pitch = map(position.x, kinect_to_left, kinect_to_right, pitchmin,  pitchmax);
       }else if (kinect_to_left > 0 && kinect_to_right < 0) {
         pitch = map(position.x, kinect_to_right, kinect_to_left, pitchmin,  pitchmax);
-      }else {
-        println("error: no pitch rate");
       }
               
       if(beats[currentBeatSection-1][currentBeatIndex] >= 0.0) {
         
-        //sc.instrument(myClang.midiInstrument);
-        //sc.playNote(pitch,100,0.5);
-        
         sc.playNote(0,0,myClang.midiInstrument,pitch, 100, beats[currentBeatSection-1][currentBeatIndex], 0.8, 64);
-        
-        ps.reset();
-        
+        ps.reset();        
       }
     }
-
+    
     currentBeatIndex++;
     
     if(currentBeatIndex > 3) {
