@@ -39,7 +39,7 @@ float       kinect_to_left = -1136;
 float       kinect_to_right = 1296;
 
 // beats
-double[][]  beats = { { 1,1,1,1 }, { 1,0,1,0 }, {1,1,0,0}, {0.0.1,1} };
+double[][]  beats = { { 1,1,1,1 }, { 1,0,1,0 }, {1,1,0,0}, {0,0,1,1} };
 
 void setup() {
 
