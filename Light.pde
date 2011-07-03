@@ -147,12 +147,14 @@ class Light {
         println("pitchRange: "+myClang.pitchRange); 
       }
       
-      // TODO
-      // insert calibration data to pitch (kinect_to_front, etc...)
-      
-      pitch = map(position.x, -800, 800, pitchmin,  pitchmax);
-      //pitch = map(position.x, -800, 800, 0, 127);
-      
+      if(kinect_to_left < 0 && kinect_to_right > 0) {
+        pitch = map(position.x, kinect_to_left, kinect_to_right, pitchmin,  pitchmax);
+      }else if (kinect_to_left > 0 && kinect_to_right < 0) {
+        pitch = map(position.x, kinect_to_right, kinect_to_left, pitchmin,  pitchmax);
+      }else {
+        println("error: no pitch rate");
+      }
+              
       if(beats[currentBeatSection-1][currentBeatIndex] >= 0.0) {
         
         //sc.instrument(myClang.midiInstrument);
