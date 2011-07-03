@@ -152,9 +152,6 @@ void draw() {
         }
       }
       
-      // TODO
-      // delete light object when user go out of scene
-      
     }
     
   }
