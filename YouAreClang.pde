@@ -39,7 +39,7 @@ float       kinect_to_left = -1136;
 float       kinect_to_right = 1296;
 
 // beats
-double[][]  beats = { { 1,1,1,1 }, { 1,0,1,0 }, {1,1,0,0}, {1,0.5,0.5,1.0} };
+double[][]  beats = { { 1,1,1,1 }, { 1,0,1,0 }, {1,1,0,0}, {0.0.1,1} };
 
 void setup() {
 
@@ -86,8 +86,8 @@ void setup() {
   
   // init fullscreen object
   
-  fs = new FullScreen(this); 
-  fs.enter(); 
+  //fs = new FullScreen(this); 
+  //fs.enter(); 
   
 }
 
@@ -202,7 +202,6 @@ void onNewUser(int userId) {
   if(debug) {
     println("*");
     println("add userid: "+userId);
-    println("*");
   }
   
   lightList.add(new Light(userId));
@@ -236,7 +235,6 @@ void onLostUser(int userId) {
       if(debug) {
         println("*");
         println("remove userid: "+userId);
-        println("*");
       }
       
       lightList.remove(i);

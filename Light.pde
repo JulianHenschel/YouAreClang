@@ -30,6 +30,7 @@ class Light {
     
     userId = id;
     
+    sc = new SoundCipher();
     ps = new particleSystem(position.x,position.y,c);
 
     if(bassCnt == 0 ) {
@@ -141,6 +142,11 @@ class Light {
           pitchmax = 95;
       }
       
+      if(debug) {
+        println("*");
+        println("pitchRange: "+myClang.pitchRange); 
+      }
+      
       // TODO
       // insert calibration data to pitch (kinect_to_front, etc...)
       
@@ -149,12 +155,10 @@ class Light {
       
       if(beats[currentBeatSection-1][currentBeatIndex] >= 0.0) {
         
-        sc = new SoundCipher();
+        //sc.instrument(myClang.midiInstrument);
+        //sc.playNote(pitch,100,0.5);
         
-        sc.instrument(myClang.midiInstrument);
-        sc.playNote(pitch,100,0.5);
-        
-        //sc.playNote(0,0,myClang.midiInstrument,pitch, 100, beats[currentBeatSection-1][currentBeatIndex], 0.8, 64);
+        sc.playNote(0,0,myClang.midiInstrument,pitch, 100, beats[currentBeatSection-1][currentBeatIndex], 0.8, 64);
         
         ps.reset();
         
