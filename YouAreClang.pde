@@ -198,7 +198,13 @@ void draw() {
 
 // add object to lightlist
 void onNewUser(int userId) {
-
+  
+  if(debug) {
+    println("*");
+    println("add userid: "+userId);
+    println("*");
+  }
+  
   lightList.add(new Light(userId));
 }
 
@@ -229,7 +235,7 @@ void onLostUser(int userId) {
       
       if(debug) {
         println("*");
-        println("remover userid "+userId);
+        println("remove userid: "+userId);
         println("*");
       }
       
