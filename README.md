@@ -6,7 +6,7 @@ Das Projekt entstand innerhalb einer Lehrveranstaltung an der Hochschule der Med
 
 ## Videos
 
-Ein Videos der Installation gibt es [hier](http://www.vimeo.com/25868787), [hier](http://www.vimeo.com/25937579) und [hier](http://www.vimeo.com/25454214).
+Mehrere Videos der Installation gibt es [hier](http://www.vimeo.com/25868787), [hier](http://www.vimeo.com/25937579) und [hier](http://www.vimeo.com/25454214).
 
 ## Bilder
 
