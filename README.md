@@ -4,9 +4,9 @@ Diese Installation ermöglicht es mehrere Personen sich als Klangobjekt im Raum 
 
 Das Projekt entstand innerhalb einer Lehrveranstaltung an der Hochschule der Medien, Stuttgart und wurde von Martin Ecker, Julian Henschel und Miroslaw Brodzinski entwickelt.
 
-## Video
+## Videos
 
-Ein Video der Installation gibt es [hier](http://www.vimeo.com/25868787), [hier](http://www.vimeo.com/25937579) und [hier](http://www.vimeo.com/25454214).
+Ein Videos der Installation gibt es [hier](http://www.vimeo.com/25868787), [hier](http://www.vimeo.com/25937579) und [hier](http://www.vimeo.com/25454214).
 
 ## Bilder
 
