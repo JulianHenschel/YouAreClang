@@ -1,6 +1,6 @@
 // You Are Clang
 // A project by Julian Henschel, Martin Ecker and Miroslaw Brodzinski (soundfreak)
-// 07/1011
+// 07/2011
 
 import processing.opengl.*;
 import arb.soundcipher.*;
