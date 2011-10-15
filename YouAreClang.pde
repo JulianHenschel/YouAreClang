@@ -1,5 +1,5 @@
 // You Are Clang
-// A project by Julian Henschel, Martin Ecker and Miroslaw Brodzinski (soundfreak)
+// A project by Julian Henschel and Martin Ecker
 // 07/2011
 
 import processing.opengl.*;
