@@ -18,7 +18,6 @@ class Light {
     
   boolean     drawLightWay = true;
   
-  SoundCipher sc;
   particleSystem ps;
   Clang myClang;
   
@@ -30,52 +29,7 @@ class Light {
     
     userId = id;
     
-    sc = new SoundCipher();
     ps = new particleSystem(position.x,position.y,c);
-
-    if(bassCnt == 0 ) {
-      
-      myClang = (Clang) clangBassList.get(int(random(clangBassList.size()-1)));
-      bassCnt += 1;
-      soundType = 0;
-    
-    }else if(bassCnt > 0 && middleCnt == 0) {
-      
-      myClang = (Clang) clangMiddleList.get(int(random(clangMiddleList.size()-1)));
-      middleCnt += 1;
-      soundType = 1;
-    
-    }else if(bassCnt > 0 && middleCnt > 0 && highCnt == 0) {
-      
-      myClang = (Clang) clangHighList.get(int(random(clangHighList.size()-1)));
-      highCnt += 1;
-      soundType = 2;
-      
-    }else {
-            
-      int soundId = int(random(0,2));
-      
-      switch(soundId) {
-        case 0:
-          myClang = (Clang) clangBassList.get(int(random(clangBassList.size()-1)));
-          bassCnt += 1;
-          soundType = 0;
-          break;
-        case 1:
-          myClang = (Clang) clangMiddleList.get(int(random(clangMiddleList.size()-1)));
-          middleCnt += 1;
-          soundType = 1;
-          break;
-        case 2:
-          myClang = (Clang) clangHighList.get(int(random(clangHighList.size()-1)));
-          highCnt += 1;
-          soundType = 2;
-          break;
-        default:
-          // do nothing
-          break;
-      }
-    }
     
     lightWay = new ArrayList();
   }
@@ -96,75 +50,7 @@ class Light {
   // play sound
   void soundUpdate() {
     
-    float pitchmin = 0;
-    float pitchmax = 0;
-    float pitch = 0 ;
     
-    if(currentBeatSection > 0) {
-      
-      if (myClang.pitchRange=="A") {
-          pitchmin = 0;
-          pitchmax = 11;
-      }
-          
-      if (myClang.pitchRange=="B") {
-          pitchmin = 12;
-          pitchmax = 23;
-      }
-  
-      if (myClang.pitchRange=="C") {
-          pitchmin = 24;
-          pitchmax = 35;
-      }
-        
-      if (myClang.pitchRange=="D") {
-          pitchmin = 36;
-          pitchmax = 47;
-      }
-          
-      if (myClang.pitchRange=="E") {
-          pitchmin = 48;
-          pitchmax = 59;
-      }
-          
-      if (myClang.pitchRange=="F") { 
-          pitchmin = 60;
-          pitchmax = 71;
-      }       
-       
-      if (myClang.pitchRange=="G") {
-          pitchmin = 72;
-          pitchmax = 83;
-      }
-        
-      if (myClang.pitchRange=="H") {
-          pitchmin = 84;
-          pitchmax = 95;
-      }
-      
-      if(debug) {
-        println("*");
-        println("pitchRange: "+myClang.pitchRange); 
-      }
-      
-      if(kinect_to_left < 0 && kinect_to_right > 0) {
-        pitch = map(position.x, kinect_to_left, kinect_to_right, pitchmin,  pitchmax);
-      }else if (kinect_to_left > 0 && kinect_to_right < 0) {
-        pitch = map(position.x, kinect_to_right, kinect_to_left, pitchmin,  pitchmax);
-      }
-              
-      if(beats[currentBeatSection-1][currentBeatIndex] >= 0.0) {
-        
-        sc.playNote(0,0,myClang.midiInstrument,pitch, 100, beats[currentBeatSection-1][currentBeatIndex], 0.8, 64);
-        ps.reset();        
-      }
-    }
-    
-    currentBeatIndex++;
-    
-    if(currentBeatIndex > 3) {
-      currentBeatIndex = 0;
-    }
     
   }
   
