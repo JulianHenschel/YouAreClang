@@ -14,7 +14,6 @@ class Light {
   int         instrument,userId;
   int         currentBeatSection = 0;
   int         currentBeatIndex = 0;
-  int         soundType;
     
   boolean     drawLightWay = true;
   

@@ -16,9 +16,6 @@ int         h = 900;
 
 int         projection = 0;
 int         sections = 4;
-int         bassCnt = 0;
-int         middleCnt = 0;
-int         highCnt = 0;
 
 boolean     showControls;
 boolean     debug = true;
@@ -202,22 +199,6 @@ void onLostUser(int userId) {
     Light light = (Light) lightList.get(i);
 
     if (light.userId == userId) {
- 
-      switch(light.soundType) {
-        
-        case 0:
-          bassCnt -= 1;
-          break;
-        case 1:
-          middleCnt -= 1;
-          break;
-        case 2:
-          highCnt -= 1;
-          break;
-        default:
-          // do nothing
-          break; 
-      }
       
       if(debug) {
         println("*");
@@ -225,6 +206,7 @@ void onLostUser(int userId) {
       }
       
       lightList.remove(i);
+      
       break;
     }
   }
