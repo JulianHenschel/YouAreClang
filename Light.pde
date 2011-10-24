@@ -18,7 +18,6 @@ class Light {
   boolean     drawLightWay = true;
   
   particleSystem ps;
-  Clang myClang;
   
   // light constructor   
   Light(int id) {
@@ -31,6 +30,7 @@ class Light {
     ps = new particleSystem(position.x,position.y,c);
     
     lightWay = new ArrayList();
+
   }
   
   // set color of ellipse and particles
@@ -49,7 +49,7 @@ class Light {
   // play sound
   void soundUpdate() {
     
-    
+    out.playNote( 1.0, 2.9, "C3" );
     
   }
   

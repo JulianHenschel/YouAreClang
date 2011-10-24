@@ -1,3 +1,5 @@
+
+
 // You Are Clang
 // A project by Julian Henschel and Martin Ecker
 // 07/2011
@@ -6,10 +8,16 @@ import processing.opengl.*;
 import SimpleOpenNI.*;
 import controlP5.*;
 import fullscreen.*;
+import ddf.minim.*;
+import ddf.minim.ugens.*;
 
 SimpleOpenNI kinect;
+
 ControlP5 controlP5;
-FullScreen fs; 
+FullScreen fs;
+
+Minim minim;
+AudioOutput out;
 
 int         w = 1440;
 int         h = 900;
@@ -25,8 +33,8 @@ ArrayList   lightList;
 color       bgc = color(0);
 
 // calibration settings
-float       kinect_to_front = 1764;
-float       kinect_to_back = 3808;
+float       kinect_to_front = 250;
+float       kinect_to_back = 1500;
 float       kinect_to_left = -1136;
 float       kinect_to_right = 1296;
 
@@ -41,14 +49,19 @@ void setup() {
   
   /* ---------------------------------------------------------------------------- */
   
+  Minim minim = new Minim( this );
+  AudioOutput out = minim.getLineOut();
+  
+  /* ---------------------------------------------------------------------------- */
+  
   // init controlP5 setup
   
   controlP5 = new ControlP5(this);
   showControls = false;
   
   Radio r = controlP5.addRadio("projection",40,40);
-  r.add("Frontprojection",0);
-  r.add("Sideprojection",1);
+  r.add("Frontprojection",1);
+  r.add("Sideprojection",0);
   
   controlP5.addSlider("kinect_to_front",0,7000,kinect_to_front,40,80,250,20).setLabel("Kinect -> front");
   controlP5.addSlider("kinect_to_back",0,7000,kinect_to_back,40,110,250,20).setLabel("Kinect -> back");
@@ -133,6 +146,7 @@ void draw() {
         if(frameCount%10 == 0) {
           
           // CREATE SOUND HERE
+          light.soundUpdate();
           
         }
       }
