@@ -9,15 +9,16 @@ import SimpleOpenNI.*;
 import controlP5.*;
 import fullscreen.*;
 import ddf.minim.*;
-import ddf.minim.ugens.*;
 
 SimpleOpenNI kinect;
 
 ControlP5 controlP5;
 FullScreen fs;
 
-Minim minim;
-AudioOutput out;
+int bufferSize = 2048;
+
+String[] backgroundSounds = { "galaxy0.mp3", "galaxy1.mp3", "galaxy2.mp3", "galaxy3.mp3", "galaxy4.mp3" };
+String[] foregroundSounds = { "bumpers.wav", "ripple.wav" };
 
 int         w = 1440;
 int         h = 900;
@@ -38,20 +39,17 @@ float       kinect_to_back = 1500;
 float       kinect_to_left = -1136;
 float       kinect_to_right = 1296;
 
+float posSlider = 0;
+
 void setup() {
 
   size(w,h,OPENGL);
   hint(ENABLE_OPENGL_4X_SMOOTH);
   
   frameRate(60);
-
+  
   lightList = new ArrayList();
-  
-  /* ---------------------------------------------------------------------------- */
-  
-  Minim minim = new Minim( this );
-  AudioOutput out = minim.getLineOut();
-  
+      
   /* ---------------------------------------------------------------------------- */
   
   // init controlP5 setup
@@ -89,7 +87,7 @@ void setup() {
 void draw() {
   
   // set background color
-  fill(bgc,5);
+  fill(bgc,10);
   noStroke();
   rect(0,0,width,height);
 
@@ -98,6 +96,23 @@ void draw() {
 
   // total user count from simpleOpenNI
   int userCount = kinect.getNumberOfUsers();
+  
+  /* ---------------------------------------------------------------------------- */
+  
+  // show slider
+  
+  if(userCount > 0) {
+  
+    stroke(100);
+  
+    line(posSlider,0,posSlider,height);
+  
+    posSlider += 1;
+  
+    if(posSlider > width) {
+      posSlider = 0;
+    }
+  }
   
   /* ---------------------------------------------------------------------------- */
   
@@ -140,15 +155,11 @@ void draw() {
       // check if users go out on left, right and front
       
       if (pos.z < kinect_to_back) {
-
+        
         light.display(theX, theY);
-  
-        if(frameCount%10 == 0) {
-          
-          // CREATE SOUND HERE
-          light.soundUpdate();
-          
-        }
+        
+        light.soundUpdate();
+        
       }
       
     }
@@ -165,6 +176,7 @@ void draw() {
   
   // show beat sections
   
+  /*
   float section_height = height/sections;
   
   stroke(100);
@@ -173,6 +185,7 @@ void draw() {
   for(int i = 1; i < sections; i++) {
     line(0,section_height*i,width,section_height*i);
   }
+  */
   
   /* ---------------------------------------------------------------------------- */
   
@@ -202,7 +215,10 @@ void onNewUser(int userId) {
     println("add userid: "+userId);
   }
   
-  lightList.add(new Light(userId));
+  Minim minim_bs = new Minim(this);
+  Minim minim_fs = new Minim(this);
+  
+  lightList.add(new Light(userId, minim_bs, minim_fs));
 }
 
 // remove object from lightlist

@@ -12,15 +12,22 @@ class Light {
   color       c;
   
   int         instrument,userId;
+  
   int         currentBeatSection = 0;
   int         currentBeatIndex = 0;
     
-  boolean     drawLightWay = true;
+  boolean     drawLightWay = false;
+  
+  String      randomSound;
+  
+  Minim       minimBs, minimFs;
+  AudioPlayer backgroundPlayer;
+  AudioSample foregroundPlayer;
   
   particleSystem ps;
   
   // light constructor   
-  Light(int id) {
+  Light(int id, Minim bs, Minim fs) {
      
     position = new PVector();
     direction = new PVector();
@@ -30,6 +37,21 @@ class Light {
     ps = new particleSystem(position.x,position.y,c);
     
     lightWay = new ArrayList();
+    
+    // init background player
+    
+    minimBs = bs;
+    minimFs = fs;
+       
+    randomSound = backgroundSounds[(int)random(0, backgroundSounds.length-1)];
+    
+    if(debug) {
+      println("*");
+      println("background sound for user id "+userId+": "+randomSound); 
+    }
+    
+    backgroundPlayer = minimBs.loadFile("data/sounds/"+randomSound, bufferSize);
+    backgroundPlayer.play();
 
   }
   
@@ -49,7 +71,42 @@ class Light {
   // play sound
   void soundUpdate() {
     
-    out.playNote( 1.0, 2.9, "C3" );
+    //out.playNote( 1.0, 2.9, "C3" );
+    
+    if(!backgroundPlayer.isPlaying()) {
+      
+      if(debug) {
+        println("*");
+        println("replaying background sound for user id: "+userId);
+      }
+      
+      backgroundPlayer = minimBs.loadFile("data/sounds/"+randomSound);
+      backgroundPlayer.play();
+    }
+    
+    if(isSlider()) {
+      
+      
+      
+      String randomFgSound = foregroundSounds[(int)random(0, foregroundSounds.length-1)];
+      foregroundPlayer = minimFs.loadSample("data/sounds/"+randomFgSound);
+      
+      //if(!foregroundPlayer.isPlaying()) {
+        
+        if(debug) {
+          println("*");
+          println("play sound for user id: "+userId);
+        }
+        
+        foregroundPlayer.trigger();
+        
+      //}else {
+        
+        println("sound is playing");
+        
+      //}
+      
+    }
     
   }
   
@@ -116,6 +173,18 @@ class Light {
       
       lightWay.add(new PVector(position.x, position.y, position.z));
     }
+  }
+  
+  boolean isSlider() {
+         
+    float distanceToSlider = dist(position.x, position.y, posSlider-width/2, position.y);
+    
+    if(distanceToSlider < 1) {
+      return true;
+    }else {
+      return false;  
+    }
+    
   }
   
 }
