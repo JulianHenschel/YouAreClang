@@ -79,7 +79,7 @@ class Light {
         println("replaying background sound for user id: "+userId);
       }
       
-      backgroundPlayer = minimBs.loadFile("data/sounds/"+randomSound);
+      backgroundPlayer = minimBs.loadFile("data/sounds/background/"+randomSound);
       backgroundPlayer.play();
     }
     
