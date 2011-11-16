@@ -14,6 +14,8 @@ class Light {
   int         instrument,userId;
   
   int         currentBeatSection = 0;
+  int         currentBeatSection_w = 0;
+  
   int         currentBeatIndex = 0;
     
   boolean     drawLightWay = false;
@@ -50,7 +52,7 @@ class Light {
       println("background sound for user id "+userId+": "+randomSound); 
     }
     
-    backgroundPlayer = minimBs.loadFile("data/sounds/"+randomSound, bufferSize);
+    backgroundPlayer = minimBs.loadFile("data/sounds/background/"+randomSound, bufferSize);
     backgroundPlayer.play();
 
   }
@@ -83,31 +85,27 @@ class Light {
       backgroundPlayer.play();
     }
     
-    if(isSlider()) {
+    if(touchSlider()) {
+      
+      if(debug) {
+        println("*");
+        println("verticle section: "+currentBeatSection);
+        println("horizontal section: "+currentBeatSection_w);
+      }
 
       String randomFgSound = foregroundSounds[(int)random(0, foregroundSounds.length-1)];
-      foregroundPlayer = minimFs.loadSample("data/sounds/"+randomFgSound);
+      foregroundPlayer = minimFs.loadSample("data/sounds/samples/"+randomFgSound);
       
-      //if(!foregroundPlayer.isPlaying()) {
+      if(debug) {
+        println("*");
+        println("play sound for user id: "+userId);
+      }
         
-        if(debug) {
-          println("*");
-          println("play sound for user id: "+userId);
-        }
-        
-        foregroundPlayer.trigger();
-        
-        // reset particle system
-        ps.reset();
-        
-      //}else {
-        
-        println("sound is playing");
-        
-      //}
+      foregroundPlayer.trigger();
+
+      ps.reset();
       
     }
-    
   }
   
   // set beat section (1-4)
@@ -127,7 +125,11 @@ class Light {
     }
     
     // set beat section width
-    
+    if(position.x < -width/sections_w && position.x > -width) {
+      currentBeatSection_w = 1;
+    }else if() {
+      currentBeatSection_w = 2;
+    }
        
   }
   
@@ -179,7 +181,7 @@ class Light {
     }
   }
   
-  boolean isSlider() {
+  boolean touchSlider() {
          
     float distanceToSlider = dist(position.x, position.y, posSlider-width/2, position.y);
     

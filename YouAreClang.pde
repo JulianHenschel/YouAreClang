@@ -228,7 +228,7 @@ void onNewUser(int userId) {
 // remove object from lightlist
 void onLostUser(int userId) {
 
-  for (int i = lightList.size()-1; i >= 0; i--) {
+  for (int i = 0; i < lightList.size(); i++) {
 
     Light light = (Light) lightList.get(i);
 
