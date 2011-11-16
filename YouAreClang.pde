@@ -28,7 +28,7 @@ int         sections = 4;
 int         sections_w = 6;
 
 boolean     showControls;
-boolean     debug = true;
+boolean     debug = false;
 
 ArrayList   lightList;
 
@@ -108,9 +108,16 @@ void draw() {
   
     line(posSlider,0,posSlider,height);
   
-    posSlider += 4;
+    posSlider += 8;
   
     if(posSlider > width) {
+      
+      // reset light sounds lock
+      for (int i = 0; i < lightList.size(); i++) {
+        Light light = (Light) lightList.get(i);
+        light.playSound = true;
+      }
+      
       posSlider = 0;
     }
   }

@@ -19,6 +19,7 @@ class Light {
   int         currentBeatIndex = 0;
     
   boolean     drawLightWay = false;
+  boolean     playSound = true;
   
   String      randomSound;
   
@@ -86,32 +87,35 @@ class Light {
     }
     
     // check if user is on the scene
-    if(currentBeatSection >= 0 || currentBeatSection_w >= 0) {
+    if(currentBeatSection >= 0 && currentBeatSection_w >= 0) {
       
       if(touchSlider()) {
-      
-        if(debug) {
-          println("*");
-          println("verticle section: "+currentBeatSection);
-          println("horizontal section: "+currentBeatSection_w);
-        }
-
-        String randomFgSound = foregroundSounds[(int)random(0, foregroundSounds.length-1)];
-        foregroundPlayer = minimFs.loadSample("data/sounds/samples/"+randomFgSound);
-      
-        if(debug) {
-          println("*");
-          println("play sound for user id: "+userId);
-        }
         
-        foregroundPlayer.trigger();
-
-        ps.reset();
+        if(playSound) {
       
+          if(debug) {
+            println("*");
+            println("verticle section: "+currentBeatSection);
+            println("horizontal section: "+currentBeatSection_w);
+          }
+
+          String randomFgSound = foregroundSounds[(int)random(0, foregroundSounds.length-1)];
+          foregroundPlayer = minimFs.loadSample("data/sounds/samples/"+randomFgSound);
+      
+          if(debug) {
+            println("*");
+            println("play sound for user id: "+userId);
+          }
+
+          foregroundPlayer.trigger();
+          
+          ps.reset();
+          
+          playSound = false;
+          
+        }
       }
-      
     }
-
   }
   
   // set beat section (1-4)
@@ -189,7 +193,7 @@ class Light {
          
     float distanceToSlider = dist(position.x, position.y, posSlider-width/2, position.y);
     
-    if(distanceToSlider < 1) {
+    if(distanceToSlider < 5) {
       return true;
     }else {
       return false;  
