@@ -13,8 +13,8 @@ class Light {
   
   int         instrument,userId;
   
-  int         currentBeatSection = 0;
-  int         currentBeatSection_w = 0;
+  float       currentBeatSection = 0;
+  float       currentBeatSection_w = 0;
   
   int         currentBeatIndex = 0;
     
@@ -85,52 +85,56 @@ class Light {
       backgroundPlayer.play();
     }
     
-    if(touchSlider()) {
+    // check if user is on the scene
+    if(currentBeatSection >= 0 || currentBeatSection_w >= 0) {
       
-      if(debug) {
-        println("*");
-        println("verticle section: "+currentBeatSection);
-        println("horizontal section: "+currentBeatSection_w);
-      }
+      if(touchSlider()) {
+      
+        if(debug) {
+          println("*");
+          println("verticle section: "+currentBeatSection);
+          println("horizontal section: "+currentBeatSection_w);
+        }
 
-      String randomFgSound = foregroundSounds[(int)random(0, foregroundSounds.length-1)];
-      foregroundPlayer = minimFs.loadSample("data/sounds/samples/"+randomFgSound);
+        String randomFgSound = foregroundSounds[(int)random(0, foregroundSounds.length-1)];
+        foregroundPlayer = minimFs.loadSample("data/sounds/samples/"+randomFgSound);
       
-      if(debug) {
-        println("*");
-        println("play sound for user id: "+userId);
-      }
+        if(debug) {
+          println("*");
+          println("play sound for user id: "+userId);
+        }
         
-      foregroundPlayer.trigger();
+        foregroundPlayer.trigger();
 
-      ps.reset();
+        ps.reset();
+      
+      }
       
     }
+
   }
   
   // set beat section (1-4)
   void setBeatSection() {
     
     // set beat section height
-    if(position.y < -height/sections && position.y > -height) {
-      currentBeatSection = 1;
-    }else if(position.y < 0 && position.y > -height/sections) {
-      currentBeatSection = 2;
-    }else if(position.y > 0 && position.y < height/sections) {
-      currentBeatSection = 3;
-    }else if(position.y > height/sections && position.y < height) {
-      currentBeatSection = 4;
-    }else {
-      currentBeatSection = 0;
+    float beat_h = map(position.y,height/2,-height/2,0,sections);
+    
+    if(beat_h < 0 || beat_h > sections) {
+      beat_h = -1;
     }
     
+    currentBeatSection = (int)beat_h;
+    
     // set beat section width
-    if(position.x < -width/sections_w && position.x > -width) {
-      currentBeatSection_w = 1;
-    }else if() {
-      currentBeatSection_w = 2;
+    float beat_w = map(position.x,-width/2,width/2,0,sections_w);
+    
+    if(beat_w < 0 || beat_w > sections_w) {
+      beat_w = -1;
     }
-       
+    
+    currentBeatSection_w = (int)beat_w;
+    
   }
   
   // display the light on current position
