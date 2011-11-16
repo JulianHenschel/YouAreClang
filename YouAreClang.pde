@@ -20,11 +20,12 @@ int bufferSize = 2048;
 String[] backgroundSounds = { "galaxy0.mp3", "galaxy1.mp3", "galaxy2.mp3", "galaxy3.mp3", "galaxy4.mp3" };
 String[] foregroundSounds = { "bumpers.wav", "ripple.wav" };
 
-int         w = 1440;
-int         h = 900;
+int         w = 1340;
+int         h = 800;
 
 int         projection = 0;
 int         sections = 4;
+int         sections_w = 6;
 
 boolean     showControls;
 boolean     debug = true;
@@ -107,7 +108,7 @@ void draw() {
   
     line(posSlider,0,posSlider,height);
   
-    posSlider += 1;
+    posSlider += 4;
   
     if(posSlider > width) {
       posSlider = 0;
@@ -176,8 +177,8 @@ void draw() {
   
   // show beat sections
   
-  /*
   float section_height = height/sections;
+  float section_width = width/sections_w;
   
   stroke(100);
   strokeWeight(.5);
@@ -185,7 +186,10 @@ void draw() {
   for(int i = 1; i < sections; i++) {
     line(0,section_height*i,width,section_height*i);
   }
-  */
+  
+  for(int i = 1; i < sections_w; i++) {
+    line(section_width*i,0,section_width*i,height);
+  }
   
   /* ---------------------------------------------------------------------------- */
   

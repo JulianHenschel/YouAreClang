@@ -71,8 +71,7 @@ class Light {
   // play sound
   void soundUpdate() {
     
-    //out.playNote( 1.0, 2.9, "C3" );
-    
+    // background sound
     if(!backgroundPlayer.isPlaying()) {
       
       if(debug) {
@@ -85,9 +84,7 @@ class Light {
     }
     
     if(isSlider()) {
-      
-      
-      
+
       String randomFgSound = foregroundSounds[(int)random(0, foregroundSounds.length-1)];
       foregroundPlayer = minimFs.loadSample("data/sounds/"+randomFgSound);
       
@@ -99,6 +96,9 @@ class Light {
         }
         
         foregroundPlayer.trigger();
+        
+        // reset particle system
+        ps.reset();
         
       //}else {
         
@@ -113,6 +113,7 @@ class Light {
   // set beat section (1-4)
   void setBeatSection() {
     
+    // set beat section height
     if(position.y < -height/sections && position.y > -height) {
       currentBeatSection = 1;
     }else if(position.y < 0 && position.y > -height/sections) {
@@ -124,6 +125,9 @@ class Light {
     }else {
       currentBeatSection = 0;
     }
+    
+    // set beat section width
+    
        
   }
   
