@@ -15,6 +15,9 @@ ControlP5 controlP5;
 FullScreen fs;
 
 int bufferSize = 2048;
+int buffer2 = 512;
+
+Minim minim;
 
 String[] backgroundSounds =       { "sounds/background/galaxy0.mp3", 
                                     "sounds/background/galaxy1.mp3", 
@@ -23,39 +26,8 @@ String[] backgroundSounds =       { "sounds/background/galaxy0.mp3",
                                     "sounds/background/galaxy4.mp3",
                                     "sounds/background/galaxy5.mp3"
                                   };
-                            
-String[][] foregroundSounds = {   { "sounds/samples/bass/beat_1.mp3",
-                                    "sounds/samples/bass/beat_2.mp3",
-                                    "sounds/samples/bass/beat_3.mp3",
-                                    "sounds/samples/bass/beat_4.mp3",
-                                    "sounds/samples/bass/beat_5.mp3",
-                                    "sounds/samples/bass/beat_6.mp3"
-                                  },
-                                  {
-                                    "sounds/samples/bells/bells_1.mp3",
-                                    "sounds/samples/bells/bells_2.mp3",
-                                    "sounds/samples/bells/bells_3.mp3",
-                                    "sounds/samples/bells/bells_4.mp3",
-                                    "sounds/samples/bells/bells_5.mp3",
-                                    "sounds/samples/bells/bells_6.mp3"
-                                  },
-                                  {
-                                    "sounds/samples/strings/strings_1.mp3",
-                                    "sounds/samples/strings/strings_2.mp3",
-                                    "sounds/samples/strings/strings_3.mp3",
-                                    "sounds/samples/strings/strings_4.mp3",
-                                    "sounds/samples/strings/strings_5.mp3",
-                                    "sounds/samples/strings/strings_6.mp3"
-                                  },
-                                  {
-                                    "sounds/samples/strings/strings_1.mp3",
-                                    "sounds/samples/strings/strings_2.mp3",
-                                    "sounds/samples/strings/strings_3.mp3",
-                                    "sounds/samples/strings/strings_4.mp3",
-                                    "sounds/samples/strings/strings_5.mp3",
-                                    "sounds/samples/strings/strings_6.mp3"
-                                  }
-                              };                        
+               
+AudioSample[][] foregroundSounds;
 
 int         w = 1340;
 int         h = 800;
@@ -68,6 +40,7 @@ boolean     showControls;
 boolean     debug = true;
 
 ArrayList   lightList;
+ArrayList   sounds;
 
 color       bgc = color(0);
 
@@ -87,6 +60,8 @@ void setup() {
   frameRate(60);
   
   lightList = new ArrayList();
+  
+  minim = new Minim(this);
       
   /* ---------------------------------------------------------------------------- */
   
@@ -118,8 +93,40 @@ void setup() {
   // init fullscreen object
   
   //fs = new FullScreen(this); 
-  //fs.enter(); 
+  //fs.enter();
   
+  /* ---------------------------------------------------------------------------- */
+  
+  foregroundSounds = new AudioSample[4][6];
+  
+  foregroundSounds[0][0] = minim.loadSample("data/sounds/samples/bass/beat_1.mp3", buffer2);
+  foregroundSounds[0][1] = minim.loadSample("data/sounds/samples/bass/beat_2.mp3", buffer2);
+  foregroundSounds[0][2] = minim.loadSample("data/sounds/samples/bass/beat_3.mp3", buffer2);
+  foregroundSounds[0][3] = minim.loadSample("data/sounds/samples/bass/beat_4.mp3", buffer2);
+  foregroundSounds[0][4] = minim.loadSample("data/sounds/samples/bass/beat_5.mp3", buffer2);
+  foregroundSounds[0][5] = minim.loadSample("data/sounds/samples/bass/beat_6.mp3", buffer2);
+  
+  foregroundSounds[1][0] = minim.loadSample("data/sounds/samples/bells/bells_1.mp3", buffer2);
+  foregroundSounds[1][1] = minim.loadSample("data/sounds/samples/bells/bells_2.mp3", buffer2);
+  foregroundSounds[1][2] = minim.loadSample("data/sounds/samples/bells/bells_3.mp3", buffer2);
+  foregroundSounds[1][3] = minim.loadSample("data/sounds/samples/bells/bells_4.mp3", buffer2);
+  foregroundSounds[1][4] = minim.loadSample("data/sounds/samples/bells/bells_5.mp3", buffer2);
+  foregroundSounds[1][5] = minim.loadSample("data/sounds/samples/bells/bells_6.mp3", buffer2);
+  
+  foregroundSounds[2][0] = minim.loadSample("data/sounds/samples/strings/strings_1.mp3", buffer2);
+  foregroundSounds[2][1] = minim.loadSample("data/sounds/samples/strings/strings_2.mp3", buffer2);
+  foregroundSounds[2][2] = minim.loadSample("data/sounds/samples/strings/strings_3.mp3", buffer2);
+  foregroundSounds[2][3] = minim.loadSample("data/sounds/samples/strings/strings_4.mp3", buffer2);
+  foregroundSounds[2][4] = minim.loadSample("data/sounds/samples/strings/strings_5.mp3", buffer2);
+  foregroundSounds[2][5] = minim.loadSample("data/sounds/samples/strings/strings_6.mp3", buffer2);
+  
+  foregroundSounds[3][0] = minim.loadSample("data/sounds/samples/strings/strings_1.mp3", buffer2);
+  foregroundSounds[3][1] = minim.loadSample("data/sounds/samples/strings/strings_2.mp3", buffer2);
+  foregroundSounds[3][2] = minim.loadSample("data/sounds/samples/strings/strings_3.mp3", buffer2);
+  foregroundSounds[3][3] = minim.loadSample("data/sounds/samples/strings/strings_4.mp3", buffer2);
+  foregroundSounds[3][4] = minim.loadSample("data/sounds/samples/strings/strings_5.mp3", buffer2);
+  foregroundSounds[3][5] = minim.loadSample("data/sounds/samples/strings/strings_6.mp3", buffer2);
+    
 }
 
 void draw() {
@@ -134,6 +141,7 @@ void draw() {
 
   // total user count from simpleOpenNI
   int userCount = kinect.getNumberOfUsers();
+  
     
   /* ---------------------------------------------------------------------------- */
   
@@ -145,7 +153,7 @@ void draw() {
   
     line(posSlider,0,posSlider,height);
   
-    posSlider += 8;
+    posSlider += 12;
   
     if(posSlider > width) {
       
@@ -272,11 +280,8 @@ void onNewUser(int userId) {
     println("*");
     println("add userid: "+userId);
   }
-  
-  Minim minim_bs = new Minim(this);
-  Minim minim_fs = new Minim(this);
-  
-  lightList.add(new Light(userId, minim_bs, minim_fs));
+
+  lightList.add(new Light(userId));
 }
 
 // remove object from lightlist
@@ -293,10 +298,24 @@ void onLostUser(int userId) {
         println("remove userid: "+userId);
       }
       
+      light.backgroundPlayer.close();
+      //light.foregroundPlayer.close();      
+            
       lightList.remove(i);
       
       break;
     }
   }
   
+}
+
+void stop() {
+  
+  if(debug) {
+    println("*");
+    println("stop");
+  }
+  
+  minim.stop();
+  super.stop();
 }

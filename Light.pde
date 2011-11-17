@@ -23,14 +23,13 @@ class Light {
   
   String      randomSound;
   
-  Minim       minimBs, minimFs;
   AudioPlayer backgroundPlayer;
-  AudioSample foregroundPlayer;
+  //AudioSample foregroundPlayer;
   
   particleSystem ps;
   
   // light constructor   
-  Light(int id, Minim bs, Minim fs) {
+  Light(int id) {
      
     position = new PVector();
     direction = new PVector();
@@ -42,10 +41,7 @@ class Light {
     lightWay = new ArrayList();
     
     // init background player
-    
-    minimBs = bs;
-    minimFs = fs;
-       
+           
     randomSound = backgroundSounds[(int)random(0, backgroundSounds.length-1)];
     
     if(debug) {
@@ -53,8 +49,8 @@ class Light {
       println("background sound for user id "+userId+": "+randomSound); 
     }
     
-    backgroundPlayer = minimBs.loadFile("data/"+randomSound, bufferSize);
-    backgroundPlayer.play();
+    backgroundPlayer = minim.loadFile("data/sounds/background/beat.mp3", bufferSize);
+    backgroundPlayer.loop();
 
   }
   
@@ -75,6 +71,7 @@ class Light {
   void soundUpdate() {
     
     // background sound
+    /*
     if(!backgroundPlayer.isPlaying()) {
       
       if(debug) {
@@ -82,9 +79,10 @@ class Light {
         println("replaying background sound for user id: "+userId);
       }
       
-      backgroundPlayer = minimBs.loadFile("data/"+randomSound, bufferSize);
+      backgroundPlayer = minim.loadFile("data/"+randomSound, bufferSize);
       backgroundPlayer.play();
     }
+    */
     
     // check if user is on the scene
     if(currentBeatSection >= 0 && currentBeatSection_w >= 0) {
@@ -98,19 +96,13 @@ class Light {
             println("verticle section: "+currentBeatSection);
             println("horizontal section: "+currentBeatSection_w);
           }
-
-          String randomFgSound = foregroundSounds[(int)currentBeatSection][(int)currentBeatSection_w];
-          foregroundPlayer = minimFs.loadSample("data/"+randomFgSound);
-          
-          println(randomFgSound);
-      
+                
           if(debug) {
             println("*");
             println("play sound for user id: "+userId);
           }
-
-          foregroundPlayer.trigger();
           
+          foregroundSounds[(int)currentBeatSection][(int)currentBeatSection_w].trigger();
           ps.reset();
           
           playSound = false;
