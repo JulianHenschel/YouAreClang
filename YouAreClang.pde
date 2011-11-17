@@ -134,7 +134,7 @@ void draw() {
 
   // total user count from simpleOpenNI
   int userCount = kinect.getNumberOfUsers();
-  
+    
   /* ---------------------------------------------------------------------------- */
   
   // show slider
@@ -245,6 +245,23 @@ void draw() {
   
   /* ---------------------------------------------------------------------------- */
 
+}
+
+int userOnScene() {
+  
+  int user = 0;
+ 
+  for (int i = 0; i < lightList.size(); i++) {
+    
+    Light light = (Light) lightList.get(i);
+    
+    if(light.currentBeatSection >= 0 && light.currentBeatSection_w >= 0) {
+      user++;
+    }
+  }
+  
+  return user;
+  
 }
 
 // add object to lightlist
