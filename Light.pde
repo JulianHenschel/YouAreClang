@@ -89,9 +89,9 @@ class Light {
     // check if user is on the scene
     if(currentBeatSection >= 0 && currentBeatSection_w >= 0) {
       
-      if(touchSlider()) {
+      if(playSound) {
         
-        if(playSound) {
+        if(touchSlider()) {
       
           if(debug) {
             println("*");
@@ -195,7 +195,7 @@ class Light {
          
     float distanceToSlider = dist(position.x, position.y, posSlider-width/2, position.y);
     
-    if(distanceToSlider < 5) {
+    if(distanceToSlider < 8) {
       return true;
     }else {
       return false;  
