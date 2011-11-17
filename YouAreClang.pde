@@ -247,6 +247,7 @@ void draw() {
 
 }
 
+// return the number of user on scene
 int userOnScene() {
   
   int user = 0;
