@@ -53,7 +53,7 @@ class Light {
       println("background sound for user id "+userId+": "+randomSound); 
     }
     
-    backgroundPlayer = minimBs.loadFile("data/sounds/background/"+randomSound, bufferSize);
+    backgroundPlayer = minimBs.loadFile("data/"+randomSound, bufferSize);
     backgroundPlayer.play();
 
   }
@@ -82,7 +82,7 @@ class Light {
         println("replaying background sound for user id: "+userId);
       }
       
-      backgroundPlayer = minimBs.loadFile("data/sounds/background/"+randomSound);
+      backgroundPlayer = minimBs.loadFile("data/"+randomSound, bufferSize);
       backgroundPlayer.play();
     }
     
@@ -99,8 +99,10 @@ class Light {
             println("horizontal section: "+currentBeatSection_w);
           }
 
-          String randomFgSound = foregroundSounds[(int)random(0, foregroundSounds.length-1)];
-          foregroundPlayer = minimFs.loadSample("data/sounds/samples/"+randomFgSound);
+          String randomFgSound = foregroundSounds[(int)currentBeatSection][(int)currentBeatSection_w];
+          foregroundPlayer = minimFs.loadSample("data/"+randomFgSound);
+          
+          println(randomFgSound);
       
           if(debug) {
             println("*");
