@@ -24,7 +24,6 @@ class Light {
   String      randomSound;
   
   AudioPlayer backgroundPlayer;
-  //AudioSample foregroundPlayer;
   
   particleSystem ps;
   
@@ -49,7 +48,7 @@ class Light {
       println("background sound for user id "+userId+": "+randomSound); 
     }
     
-    backgroundPlayer = minim.loadFile("data/sounds/background/beat.mp3", bufferSize);
+    backgroundPlayer = minim.loadFile("data/"+randomSound, bufferSize);
     backgroundPlayer.loop();
 
   }
@@ -103,6 +102,7 @@ class Light {
           }
           
           foregroundSounds[(int)currentBeatSection][(int)currentBeatSection_w].trigger();
+          
           ps.reset();
           
           playSound = false;

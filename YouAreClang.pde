@@ -1,7 +1,7 @@
 
 // You Are Clang
 // A project by Julian Henschel and Martin Ecker
-// 07/2011
+// 11/2011
 
 import processing.opengl.*;
 import SimpleOpenNI.*;
@@ -14,8 +14,7 @@ SimpleOpenNI kinect;
 ControlP5 controlP5;
 FullScreen fs;
 
-int bufferSize = 2048;
-int buffer2 = 512;
+int bufferSize = 1024;
 
 Minim minim;
 
@@ -97,35 +96,37 @@ void setup() {
   
   /* ---------------------------------------------------------------------------- */
   
+  // load samples 
+  
   foregroundSounds = new AudioSample[4][6];
   
-  foregroundSounds[0][0] = minim.loadSample("data/sounds/samples/bass/beat_1.mp3", buffer2);
-  foregroundSounds[0][1] = minim.loadSample("data/sounds/samples/bass/beat_2.mp3", buffer2);
-  foregroundSounds[0][2] = minim.loadSample("data/sounds/samples/bass/beat_3.mp3", buffer2);
-  foregroundSounds[0][3] = minim.loadSample("data/sounds/samples/bass/beat_4.mp3", buffer2);
-  foregroundSounds[0][4] = minim.loadSample("data/sounds/samples/bass/beat_5.mp3", buffer2);
-  foregroundSounds[0][5] = minim.loadSample("data/sounds/samples/bass/beat_6.mp3", buffer2);
+  foregroundSounds[0][0] = minim.loadSample("data/sounds/samples/bass/beat_1.mp3", bufferSize);
+  foregroundSounds[0][1] = minim.loadSample("data/sounds/samples/bass/beat_2.mp3", bufferSize);
+  foregroundSounds[0][2] = minim.loadSample("data/sounds/samples/bass/beat_3.mp3", bufferSize);
+  foregroundSounds[0][3] = minim.loadSample("data/sounds/samples/bass/beat_4.mp3", bufferSize);
+  foregroundSounds[0][4] = minim.loadSample("data/sounds/samples/bass/beat_5.mp3", bufferSize);
+  foregroundSounds[0][5] = minim.loadSample("data/sounds/samples/bass/beat_6.mp3", bufferSize);
   
-  foregroundSounds[1][0] = minim.loadSample("data/sounds/samples/bells/bells_1.mp3", buffer2);
-  foregroundSounds[1][1] = minim.loadSample("data/sounds/samples/bells/bells_2.mp3", buffer2);
-  foregroundSounds[1][2] = minim.loadSample("data/sounds/samples/bells/bells_3.mp3", buffer2);
-  foregroundSounds[1][3] = minim.loadSample("data/sounds/samples/bells/bells_4.mp3", buffer2);
-  foregroundSounds[1][4] = minim.loadSample("data/sounds/samples/bells/bells_5.mp3", buffer2);
-  foregroundSounds[1][5] = minim.loadSample("data/sounds/samples/bells/bells_6.mp3", buffer2);
+  foregroundSounds[1][0] = minim.loadSample("data/sounds/samples/bells/bells_1.mp3", bufferSize);
+  foregroundSounds[1][1] = minim.loadSample("data/sounds/samples/bells/bells_2.mp3", bufferSize);
+  foregroundSounds[1][2] = minim.loadSample("data/sounds/samples/bells/bells_3.mp3", bufferSize);
+  foregroundSounds[1][3] = minim.loadSample("data/sounds/samples/bells/bells_4.mp3", bufferSize);
+  foregroundSounds[1][4] = minim.loadSample("data/sounds/samples/bells/bells_5.mp3", bufferSize);
+  foregroundSounds[1][5] = minim.loadSample("data/sounds/samples/bells/bells_6.mp3", bufferSize);
   
-  foregroundSounds[2][0] = minim.loadSample("data/sounds/samples/strings/strings_1.mp3", buffer2);
-  foregroundSounds[2][1] = minim.loadSample("data/sounds/samples/strings/strings_2.mp3", buffer2);
-  foregroundSounds[2][2] = minim.loadSample("data/sounds/samples/strings/strings_3.mp3", buffer2);
-  foregroundSounds[2][3] = minim.loadSample("data/sounds/samples/strings/strings_4.mp3", buffer2);
-  foregroundSounds[2][4] = minim.loadSample("data/sounds/samples/strings/strings_5.mp3", buffer2);
-  foregroundSounds[2][5] = minim.loadSample("data/sounds/samples/strings/strings_6.mp3", buffer2);
+  foregroundSounds[2][0] = minim.loadSample("data/sounds/samples/strings/strings_1.mp3", bufferSize);
+  foregroundSounds[2][1] = minim.loadSample("data/sounds/samples/strings/strings_2.mp3", bufferSize);
+  foregroundSounds[2][2] = minim.loadSample("data/sounds/samples/strings/strings_3.mp3", bufferSize);
+  foregroundSounds[2][3] = minim.loadSample("data/sounds/samples/strings/strings_4.mp3", bufferSize);
+  foregroundSounds[2][4] = minim.loadSample("data/sounds/samples/strings/strings_5.mp3", bufferSize);
+  foregroundSounds[2][5] = minim.loadSample("data/sounds/samples/strings/strings_6.mp3", bufferSize);
   
-  foregroundSounds[3][0] = minim.loadSample("data/sounds/samples/strings/strings_1.mp3", buffer2);
-  foregroundSounds[3][1] = minim.loadSample("data/sounds/samples/strings/strings_2.mp3", buffer2);
-  foregroundSounds[3][2] = minim.loadSample("data/sounds/samples/strings/strings_3.mp3", buffer2);
-  foregroundSounds[3][3] = minim.loadSample("data/sounds/samples/strings/strings_4.mp3", buffer2);
-  foregroundSounds[3][4] = minim.loadSample("data/sounds/samples/strings/strings_5.mp3", buffer2);
-  foregroundSounds[3][5] = minim.loadSample("data/sounds/samples/strings/strings_6.mp3", buffer2);
+  foregroundSounds[3][0] = minim.loadSample("data/sounds/samples/strings/strings_1.mp3", bufferSize);
+  foregroundSounds[3][1] = minim.loadSample("data/sounds/samples/strings/strings_2.mp3", bufferSize);
+  foregroundSounds[3][2] = minim.loadSample("data/sounds/samples/strings/strings_3.mp3", bufferSize);
+  foregroundSounds[3][3] = minim.loadSample("data/sounds/samples/strings/strings_4.mp3", bufferSize);
+  foregroundSounds[3][4] = minim.loadSample("data/sounds/samples/strings/strings_5.mp3", bufferSize);
+  foregroundSounds[3][5] = minim.loadSample("data/sounds/samples/strings/strings_6.mp3", bufferSize);
     
 }
 
@@ -256,6 +257,7 @@ void draw() {
 }
 
 // return the number of user on scene
+
 int userOnScene() {
   
   int user = 0;
@@ -270,7 +272,6 @@ int userOnScene() {
   }
   
   return user;
-  
 }
 
 // add object to lightlist
