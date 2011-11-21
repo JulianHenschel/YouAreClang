@@ -22,9 +22,7 @@ class Light {
   boolean     playSound = true;
   
   String      randomSound;
-  
-  AudioPlayer backgroundPlayer;
-  
+    
   particleSystem ps;
   
   // light constructor   
@@ -38,18 +36,6 @@ class Light {
     ps = new particleSystem(position.x,position.y,c);
     
     lightWay = new ArrayList();
-    
-    // init background player
-           
-    randomSound = backgroundSounds[(int)random(0, backgroundSounds.length-1)];
-    
-    if(debug) {
-      println("*");
-      println("background sound for user id "+userId+": "+randomSound); 
-    }
-    
-    backgroundPlayer = minim.loadFile("data/"+randomSound, bufferSize);
-    backgroundPlayer.loop();
 
   }
   

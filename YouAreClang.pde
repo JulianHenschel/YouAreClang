@@ -18,15 +18,8 @@ int bufferSize = 1024;
 
 Minim minim;
 
-String[] backgroundSounds =       { "sounds/background/galaxy0.mp3", 
-                                    "sounds/background/galaxy1.mp3", 
-                                    "sounds/background/galaxy2.mp3", 
-                                    "sounds/background/galaxy3.mp3", 
-                                    "sounds/background/galaxy4.mp3",
-                                    "sounds/background/galaxy5.mp3"
-                                  };
-               
 AudioSample[][] foregroundSounds;
+AudioPlayer     backgroundPlayer;
 
 int         w = 1340;
 int         h = 800;
@@ -70,8 +63,8 @@ void setup() {
   showControls = false;
   
   Radio r = controlP5.addRadio("projection",40,40);
-  r.add("Frontprojection",1);
-  r.add("Sideprojection",0);
+  r.add("Frontprojection", 1);
+  r.add("Sideprojection", 0);
   
   controlP5.addSlider("kinect_to_front",0,7000,kinect_to_front,40,80,250,20).setLabel("Kinect -> front");
   controlP5.addSlider("kinect_to_back",0,7000,kinect_to_back,40,110,250,20).setLabel("Kinect -> back");
@@ -96,16 +89,21 @@ void setup() {
   
   /* ---------------------------------------------------------------------------- */
   
+  // load background sound
+  
+  backgroundPlayer = minim.loadFile("data/sounds/background.mp3", bufferSize);
+  backgroundPlayer.loop();
+  
   // load samples 
   
   foregroundSounds = new AudioSample[4][6];
   
-  foregroundSounds[0][0] = minim.loadSample("data/sounds/samples/bass/beat_1.mp3", bufferSize);
-  foregroundSounds[0][1] = minim.loadSample("data/sounds/samples/bass/beat_2.mp3", bufferSize);
-  foregroundSounds[0][2] = minim.loadSample("data/sounds/samples/bass/beat_3.mp3", bufferSize);
-  foregroundSounds[0][3] = minim.loadSample("data/sounds/samples/bass/beat_4.mp3", bufferSize);
-  foregroundSounds[0][4] = minim.loadSample("data/sounds/samples/bass/beat_5.mp3", bufferSize);
-  foregroundSounds[0][5] = minim.loadSample("data/sounds/samples/bass/beat_6.mp3", bufferSize);
+  foregroundSounds[0][0] = minim.loadSample("data/sounds/samples/bass/bass_1.mp3", bufferSize);
+  foregroundSounds[0][1] = minim.loadSample("data/sounds/samples/bass/bass_2.mp3", bufferSize);
+  foregroundSounds[0][2] = minim.loadSample("data/sounds/samples/bass/bass_3.mp3", bufferSize);
+  foregroundSounds[0][3] = minim.loadSample("data/sounds/samples/bass/bass_4.mp3", bufferSize);
+  foregroundSounds[0][4] = minim.loadSample("data/sounds/samples/bass/bass_5.mp3", bufferSize);
+  foregroundSounds[0][5] = minim.loadSample("data/sounds/samples/bass/bass_6.mp3", bufferSize);
   
   foregroundSounds[1][0] = minim.loadSample("data/sounds/samples/bells/bells_1.mp3", bufferSize);
   foregroundSounds[1][1] = minim.loadSample("data/sounds/samples/bells/bells_2.mp3", bufferSize);
@@ -114,19 +112,19 @@ void setup() {
   foregroundSounds[1][4] = minim.loadSample("data/sounds/samples/bells/bells_5.mp3", bufferSize);
   foregroundSounds[1][5] = minim.loadSample("data/sounds/samples/bells/bells_6.mp3", bufferSize);
   
-  foregroundSounds[2][0] = minim.loadSample("data/sounds/samples/strings/strings_1.mp3", bufferSize);
-  foregroundSounds[2][1] = minim.loadSample("data/sounds/samples/strings/strings_2.mp3", bufferSize);
-  foregroundSounds[2][2] = minim.loadSample("data/sounds/samples/strings/strings_3.mp3", bufferSize);
-  foregroundSounds[2][3] = minim.loadSample("data/sounds/samples/strings/strings_4.mp3", bufferSize);
-  foregroundSounds[2][4] = minim.loadSample("data/sounds/samples/strings/strings_5.mp3", bufferSize);
-  foregroundSounds[2][5] = minim.loadSample("data/sounds/samples/strings/strings_6.mp3", bufferSize);
+  foregroundSounds[2][0] = minim.loadSample("data/sounds/samples/keys/keys_1.mp3", bufferSize);
+  foregroundSounds[2][1] = minim.loadSample("data/sounds/samples/keys/keys_2.mp3", bufferSize);
+  foregroundSounds[2][2] = minim.loadSample("data/sounds/samples/keys/keys_3.mp3", bufferSize);
+  foregroundSounds[2][3] = minim.loadSample("data/sounds/samples/keys/keys_4.mp3", bufferSize);
+  foregroundSounds[2][4] = minim.loadSample("data/sounds/samples/keys/keys_5.mp3", bufferSize);
+  foregroundSounds[2][5] = minim.loadSample("data/sounds/samples/keys/keys_6.mp3", bufferSize);
   
-  foregroundSounds[3][0] = minim.loadSample("data/sounds/samples/strings/strings_1.mp3", bufferSize);
-  foregroundSounds[3][1] = minim.loadSample("data/sounds/samples/strings/strings_2.mp3", bufferSize);
-  foregroundSounds[3][2] = minim.loadSample("data/sounds/samples/strings/strings_3.mp3", bufferSize);
-  foregroundSounds[3][3] = minim.loadSample("data/sounds/samples/strings/strings_4.mp3", bufferSize);
-  foregroundSounds[3][4] = minim.loadSample("data/sounds/samples/strings/strings_5.mp3", bufferSize);
-  foregroundSounds[3][5] = minim.loadSample("data/sounds/samples/strings/strings_6.mp3", bufferSize);
+  foregroundSounds[3][0] = minim.loadSample("data/sounds/samples/lead/lead_1.mp3", bufferSize);
+  foregroundSounds[3][1] = minim.loadSample("data/sounds/samples/lead/lead_2.mp3", bufferSize);
+  foregroundSounds[3][2] = minim.loadSample("data/sounds/samples/lead/lead_3.mp3", bufferSize);
+  foregroundSounds[3][3] = minim.loadSample("data/sounds/samples/lead/lead_4.mp3", bufferSize);
+  foregroundSounds[3][4] = minim.loadSample("data/sounds/samples/lead/lead_5.mp3", bufferSize);
+  foregroundSounds[3][5] = minim.loadSample("data/sounds/samples/lead/lead_6.mp3", bufferSize);
     
 }
 
@@ -142,7 +140,6 @@ void draw() {
 
   // total user count from simpleOpenNI
   int userCount = kinect.getNumberOfUsers();
-  
     
   /* ---------------------------------------------------------------------------- */
   
@@ -297,10 +294,7 @@ void onLostUser(int userId) {
       if(debug) {
         println("*");
         println("remove userid: "+userId);
-      }
-      
-      light.backgroundPlayer.close();
-      //light.foregroundPlayer.close();      
+      }    
             
       lightList.remove(i);
       
