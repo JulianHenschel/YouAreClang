@@ -36,7 +36,6 @@ class Light {
     ps = new particleSystem(position.x,position.y,c);
     
     lightWay = new ArrayList();
-
   }
   
   // set color of ellipse and particles
@@ -54,20 +53,6 @@ class Light {
   
   // play sound
   void soundUpdate() {
-    
-    // background sound
-    /*
-    if(!backgroundPlayer.isPlaying()) {
-      
-      if(debug) {
-        println("*");
-        println("replaying background sound for user id: "+userId);
-      }
-      
-      backgroundPlayer = minim.loadFile("data/"+randomSound, bufferSize);
-      backgroundPlayer.play();
-    }
-    */
     
     // check if user is on the scene
     if(currentBeatSection >= 0 && currentBeatSection_w >= 0) {
@@ -96,6 +81,7 @@ class Light {
         }
       }
     }
+    
   }
   
   // set beat section (1-4)
@@ -122,6 +108,7 @@ class Light {
   }
   
   // display the light on current position
+  // update color and beat section
   void display(float x, float y) {
 
     position.x = x;
@@ -162,6 +149,7 @@ class Light {
         
         stroke(c);
         strokeWeight(2);
+        
         point(waypoint.x,waypoint.y);
       }
       
@@ -169,16 +157,16 @@ class Light {
     }
   }
   
+  // check distance to slider
   boolean touchSlider() {
          
     float distanceToSlider = dist(position.x, position.y, posSlider-width/2, position.y);
     
-    if(distanceToSlider < 8) {
+    if(distanceToSlider <= (sliderSpeed/2) ) {
       return true;
     }else {
       return false;  
     }
-    
   }
   
 }

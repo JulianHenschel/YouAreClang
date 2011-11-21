@@ -1,10 +1,12 @@
 public class particleSystem {
   
   PVector position;
+  
   ArrayList particles;
   
   int particleCount = 100;
   int time = 1;
+  
   color c;
   
   // particleSystem constructor

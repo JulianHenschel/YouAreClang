@@ -9,14 +9,10 @@ import controlP5.*;
 import fullscreen.*;
 import ddf.minim.*;
 
-SimpleOpenNI kinect;
-
-ControlP5 controlP5;
-FullScreen fs;
-
-int bufferSize = 1024;
-
-Minim minim;
+SimpleOpenNI    kinect;
+ControlP5       controlP5;
+FullScreen      fs;
+Minim           minim;
 
 AudioSample[][] foregroundSounds;
 AudioPlayer     backgroundPlayer;
@@ -24,12 +20,13 @@ AudioPlayer     backgroundPlayer;
 int         w = 1340;
 int         h = 800;
 
+int         bufferSize = 1024;
 int         projection = 0;
 int         sections = 4;
 int         sections_w = 6;
 
 boolean     showControls;
-boolean     debug = true;
+boolean     debug = false;
 
 ArrayList   lightList;
 ArrayList   sounds;
@@ -42,7 +39,8 @@ float       kinect_to_back = 1500;
 float       kinect_to_left = -1136;
 float       kinect_to_right = 1296;
 
-float posSlider = 0;
+int         posSlider = 0;
+int         sliderSpeed = 10;
 
 void setup() {
 
@@ -50,7 +48,7 @@ void setup() {
   hint(ENABLE_OPENGL_4X_SMOOTH);
   
   frameRate(60);
-  
+    
   lightList = new ArrayList();
   
   minim = new Minim(this);
@@ -89,12 +87,12 @@ void setup() {
   
   /* ---------------------------------------------------------------------------- */
   
-  // load background sound
+  // load background player
   
   backgroundPlayer = minim.loadFile("data/sounds/background.mp3", bufferSize);
   backgroundPlayer.loop();
   
-  // load samples 
+  // load foreground samples 
   
   foregroundSounds = new AudioSample[4][6];
   
@@ -130,7 +128,7 @@ void setup() {
 
 void draw() {
   
-  // set background color
+  // set background
   fill(bgc,10);
   noStroke();
   rect(0,0,width,height);
@@ -144,14 +142,13 @@ void draw() {
   /* ---------------------------------------------------------------------------- */
   
   // show slider
-  
-  if(userCount > 0) {
+
+  if(userOnScene() > 0) {
   
     stroke(100);
-  
     line(posSlider,0,posSlider,height);
   
-    posSlider += 12;
+    posSlider += sliderSpeed;
   
     if(posSlider > width) {
       
@@ -254,7 +251,6 @@ void draw() {
 }
 
 // return the number of user on scene
-
 int userOnScene() {
   
   int user = 0;
@@ -304,6 +300,18 @@ void onLostUser(int userId) {
   
 }
 
+// change slider speed
+void keyPressed() {
+  
+  if (keyCode == UP) { 
+    sliderSpeed += 2;
+  }
+  if (keyCode == DOWN) { 
+    sliderSpeed -= 2;
+  }  
+}
+
+// stop application
 void stop() {
   
   if(debug) {
