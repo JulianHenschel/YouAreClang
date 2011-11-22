@@ -1,4 +1,3 @@
-
 // You Are Clang
 // A project by Julian Henschel and Martin Ecker
 // 11/2011
@@ -15,7 +14,7 @@ FullScreen      fs;
 Minim           minim;
 
 AudioSample[][] foregroundSounds;
-AudioPlayer     backgroundPlayer;
+//AudioPlayer     backgroundPlayer;
 
 int         w = 1340;
 int         h = 800;
@@ -29,7 +28,6 @@ boolean     showControls;
 boolean     debug = false;
 
 ArrayList   lightList;
-ArrayList   sounds;
 
 color       bgc = color(0);
 
@@ -39,6 +37,7 @@ float       kinect_to_back = 1500;
 float       kinect_to_left = -1136;
 float       kinect_to_right = 1296;
 
+// slider
 int         posSlider = 0;
 int         sliderSpeed = 10;
 
@@ -50,8 +49,6 @@ void setup() {
   frameRate(60);
     
   lightList = new ArrayList();
-  
-  minim = new Minim(this);
       
   /* ---------------------------------------------------------------------------- */
   
@@ -87,10 +84,14 @@ void setup() {
   
   /* ---------------------------------------------------------------------------- */
   
+  minim = new Minim(this);
+  
   // load background player
   
+  /*
   backgroundPlayer = minim.loadFile("data/sounds/background.mp3", bufferSize);
   backgroundPlayer.loop();
+  */
   
   // load foreground samples 
   
@@ -103,12 +104,12 @@ void setup() {
   foregroundSounds[0][4] = minim.loadSample("data/sounds/samples/bass/bass_5.mp3", bufferSize);
   foregroundSounds[0][5] = minim.loadSample("data/sounds/samples/bass/bass_6.mp3", bufferSize);
   
-  foregroundSounds[1][0] = minim.loadSample("data/sounds/samples/bells/bells_1.mp3", bufferSize);
-  foregroundSounds[1][1] = minim.loadSample("data/sounds/samples/bells/bells_2.mp3", bufferSize);
-  foregroundSounds[1][2] = minim.loadSample("data/sounds/samples/bells/bells_3.mp3", bufferSize);
-  foregroundSounds[1][3] = minim.loadSample("data/sounds/samples/bells/bells_4.mp3", bufferSize);
-  foregroundSounds[1][4] = minim.loadSample("data/sounds/samples/bells/bells_5.mp3", bufferSize);
-  foregroundSounds[1][5] = minim.loadSample("data/sounds/samples/bells/bells_6.mp3", bufferSize);
+  foregroundSounds[1][0] = minim.loadSample("data/sounds/samples/space/space_1.mp3", bufferSize);
+  foregroundSounds[1][1] = minim.loadSample("data/sounds/samples/space/space_2.mp3", bufferSize);
+  foregroundSounds[1][2] = minim.loadSample("data/sounds/samples/space/space_3.mp3", bufferSize);
+  foregroundSounds[1][3] = minim.loadSample("data/sounds/samples/space/space_4.mp3", bufferSize);
+  foregroundSounds[1][4] = minim.loadSample("data/sounds/samples/space/space_5.mp3", bufferSize);
+  foregroundSounds[1][5] = minim.loadSample("data/sounds/samples/space/space_6.mp3", bufferSize);
   
   foregroundSounds[2][0] = minim.loadSample("data/sounds/samples/keys/keys_1.mp3", bufferSize);
   foregroundSounds[2][1] = minim.loadSample("data/sounds/samples/keys/keys_2.mp3", bufferSize);
@@ -250,7 +251,7 @@ void draw() {
 
 }
 
-// return the number of user on scene
+// return the number of users on scene
 int userOnScene() {
   
   int user = 0;

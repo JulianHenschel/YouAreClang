@@ -149,7 +149,6 @@ class Light {
         
         stroke(c);
         strokeWeight(2);
-        
         point(waypoint.x,waypoint.y);
       }
       
