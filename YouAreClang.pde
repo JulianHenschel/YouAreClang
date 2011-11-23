@@ -16,8 +16,8 @@ Minim           minim;
 AudioSample[][] foregroundSounds;
 //AudioPlayer     backgroundPlayer;
 
-int         w = 1340;
-int         h = 800;
+int         w = 1440;
+int         h = 900;
 
 int         bufferSize = 1024;
 int         projection = 0;
@@ -39,7 +39,7 @@ float       kinect_to_right = 1296;
 
 // slider
 int         posSlider = 0;
-int         sliderSpeed = 10;
+int         sliderSpeed = 14;
 
 void setup() {
 
@@ -144,7 +144,7 @@ void draw() {
   
   // show slider
 
-  if(userOnScene() > 0) {
+  if(usersOnScene() > 0) {
   
     stroke(100);
     line(posSlider,0,posSlider,height);
@@ -153,7 +153,7 @@ void draw() {
   
     if(posSlider > width) {
       
-      // reset light sounds lock
+      // reset light sound lock
       for (int i = 0; i < lightList.size(); i++) {
         Light light = (Light) lightList.get(i);
         light.playSound = true;
@@ -252,7 +252,7 @@ void draw() {
 }
 
 // return the number of users on scene
-int userOnScene() {
+int usersOnScene() {
   
   int user = 0;
  
