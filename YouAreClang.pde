@@ -14,7 +14,6 @@ FullScreen      fs;
 Minim           minim;
 
 AudioSample[][] foregroundSounds;
-//AudioPlayer     backgroundPlayer;
 
 int         w = 1440;
 int         h = 900;
@@ -85,13 +84,6 @@ void setup() {
   /* ---------------------------------------------------------------------------- */
   
   minim = new Minim(this);
-  
-  // load background player
-  
-  /*
-  backgroundPlayer = minim.loadFile("data/sounds/background.mp3", bufferSize);
-  backgroundPlayer.loop();
-  */
   
   // load foreground samples 
   
