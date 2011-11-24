@@ -15,4 +15,4 @@ Mehrere Videos der Installation gibt es [hier](http://www.vimeo.com/25868787), [
 
 ## Bilder
 
-![youareclang](https://github.com/JulianHenschel/YouAreClang/raw/master/pictures/IMG_0632.jpg)
+![youareclang](https://github.com/JulianHenschel/YouAreClang/raw/master/pictures/YouAreClang_Poster.jpg)
