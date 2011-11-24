@@ -4,6 +4,8 @@ Diese Installation ermöglicht es mehreren Personen sich als Klangobjekt im Raum
 
 Das Projekt entstand innerhalb einer Lehrveranstaltung an der Hochschule der Medien, Stuttgart und wurde von Martin Ecker und Julian Henschel entwickelt.
 
+[![Creative Commons](http://i.creativecommons.org/l/by-sa/3.0/88x31.png)](http://creativecommons.org/licenses/by-sa/3.0/)
+
 ## Bisherige Ausstellungen
 - [Tag der Forschung](http://www.hdm-stuttgart.de/view_news?ident=news20110628133023), Stuttgart, 22.06.11
 - [MediaNight](http://www.hdm-stuttgart.de/medianight), Stuttgart, 30.07.11
