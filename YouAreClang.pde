@@ -252,7 +252,7 @@ int usersOnScene() {
     
     Light light = (Light) lightList.get(i);
     
-    if(light.currentBeatSection >= 0 && light.currentBeatSection_w >= 0) {
+    if(light.isLightOnScene()) {
       user++;
     }
   }

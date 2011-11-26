@@ -55,7 +55,7 @@ class Light {
   void soundUpdate() {
     
     // check if user is on the scene
-    if(currentBeatSection >= 0 && currentBeatSection_w >= 0) {
+    if(isLightOnScene()) {
       
       if(playSound) {
         
@@ -154,6 +154,17 @@ class Light {
       
       lightWay.add(new PVector(position.x, position.y, position.z));
     }
+  }
+  
+  // check if user is on scene
+  boolean isLightOnScene() {
+    
+    if(currentBeatSection >= 0 && currentBeatSection_w >= 0) {
+      return true;
+    }else {
+      return false;
+    }
+    
   }
   
   // check distance to slider
