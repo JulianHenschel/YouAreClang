@@ -6,6 +6,9 @@ Das Projekt entstand innerhalb einer Lehrveranstaltung an der Hochschule der Med
 
 [![Creative Commons](http://i.creativecommons.org/l/by-sa/3.0/88x31.png)](http://creativecommons.org/licenses/by-sa/3.0/deed.de)
 
+## Nächste Schritte
+Im nächsten Schritt soll die Klanginstallation die automatische Skeletterkennung unterstützen und damit weitere Interaktionsebenen beinhalten.
+
 ## Bisherige Ausstellungen
 - [Tag der Forschung](http://www.hdm-stuttgart.de/view_news?ident=news20110628133023), Stuttgart, 22.06.11
 - [MediaNight](http://www.hdm-stuttgart.de/medianight), Stuttgart, 30.07.11
