@@ -59,7 +59,9 @@ class Light {
     isCalibrated = kinect.isCalibratedSkeleton(this.userId);
     
     // update slider position
-    posSlider += sliderSpeed;
+    if(sliderSpeed > 0) {
+      posSlider += sliderSpeed;
+    }
     
     if(posSlider > width) {
       playSound = true;
@@ -69,14 +71,12 @@ class Light {
     if(isCalibrated) {
       
       PVector rightHandPos = new PVector();
-      
-      // update y-position of the right hand
       kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND, rightHandPos);
       
-      println(rightHandPos);
+      float newSliderSpeed = map(rightHandPos.y,-height/2,height/2,30,200);
       
-      fill(255);
-      ellipse(rightHandPos.x,rightHandPos.y,20,20);
+      sliderSpeed = (int)newSliderSpeed;
+      
     }
     
   }
@@ -157,6 +157,13 @@ class Light {
     
     arc(position.x, position.y, arc_radius, arc_radius, radians(startDeg2), radians(endDeg2) );
     arc(position.x, position.y, arc_radius, arc_radius, radians(startDeg), radians(endDeg) );
+    
+    if(isCalibrated) {
+      
+      noFill();
+      stroke(c,95);
+      ellipse(position.x, position.y,arc_radius+20,arc_radius+20);
+    }
         
     startDeg += spinRotationAngle;
     endDeg += spinRotationAngle;
