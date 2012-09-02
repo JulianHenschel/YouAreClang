@@ -19,26 +19,27 @@ int         w = 1440;
 int         h = 900;
 
 int         bufferSize = 1024;
-int         projection = 0;
+int         projection = 1;
 int         sections = 4;
 int         sections_w = 6;
 
 boolean     showControls;
 boolean     debug = false;
+boolean     autoCalib = true;
 
 ArrayList   lightList;
 
 color       bgc = color(0);
 
 // calibration settings
-float       kinect_to_front = 250;
-float       kinect_to_back = 1500;
-float       kinect_to_left = -1136;
-float       kinect_to_right = 1296;
+float       kinect_to_front = 1596;
+float       kinect_to_back = 3808;
+float       kinect_to_left = 624;
+float       kinect_to_right = -512;
 
 // slider
 int         posSlider = 0;
-int         sliderSpeed = 14;
+int         sliderSpeed = 10;
 
 void setup() {
 
@@ -139,7 +140,7 @@ void draw() {
   if(usersOnScene() > 0) {
   
     stroke(100);
-    line(posSlider,0,posSlider,height);
+    //line(posSlider,0,posSlider,height);
   
     posSlider += sliderSpeed;
   
@@ -266,6 +267,13 @@ void onNewUser(int userId) {
   if(debug) {
     println("*");
     println("add userid: "+userId);
+    println("  start pose detection");
+  }
+  
+  if(autoCalib) {
+    kinect.requestCalibrationSkeleton(userId,true);
+  }else {    
+    kinect.startPoseDetection("Psi",userId);
   }
 
   lightList.add(new Light(userId));
