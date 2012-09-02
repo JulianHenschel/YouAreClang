@@ -1,6 +1,6 @@
 class Light {
  
-  PVector     position, direction;
+  PVector     position, direction, rightHandPos;
   ArrayList   lightWay;
     
   float       startDeg = 0.0;
@@ -12,12 +12,11 @@ class Light {
   color       c;
   
   int         instrument,userId;
+  int         currentBeatIndex = 0;
   
   float       currentBeatSection = 0;
   float       currentBeatSection_w = 0;
-  
-  int         currentBeatIndex = 0;
-    
+
   boolean     drawLightWay = false;
   boolean     playSound = true;
   boolean     isCalibrated = false;
@@ -57,9 +56,7 @@ class Light {
     
     // check if user is calibrated 
     isCalibrated = kinect.isCalibratedSkeleton(this.userId);
-    
-    println(isCalibrated);
-    
+        
     // check if user is on the scene
     if(isLightOnScene()) {
       
