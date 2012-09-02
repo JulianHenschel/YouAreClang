@@ -37,10 +37,6 @@ float       kinect_to_back = 3808;
 float       kinect_to_left = 624;
 float       kinect_to_right = -512;
 
-// slider
-int         posSlider = 0;
-int         sliderSpeed = 10;
-
 void setup() {
 
   size(w,h,OPENGL);
@@ -70,7 +66,7 @@ void setup() {
   
   // init simpleOpenNI object
   
-  kinect = new SimpleOpenNI(this);
+  kinect = new SimpleOpenNI(this,SimpleOpenNI.RUN_MODE_MULTI_THREADED);
   kinect.setMirror(true);
   kinect.enableDepth();
   kinect.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
@@ -132,29 +128,6 @@ void draw() {
 
   // total user count from simpleOpenNI
   int userCount = kinect.getNumberOfUsers();
-    
-  /* ---------------------------------------------------------------------------- */
-  
-  // show slider
-
-  if(usersOnScene() > 0) {
-  
-    stroke(100);
-    //line(posSlider,0,posSlider,height);
-  
-    posSlider += sliderSpeed;
-  
-    if(posSlider > width) {
-      
-      // reset light sound lock
-      for (int i = 0; i < lightList.size(); i++) {
-        Light light = (Light) lightList.get(i);
-        light.playSound = true;
-      }
-      
-      posSlider = 0;
-    }
-  }
   
   /* ---------------------------------------------------------------------------- */
   
@@ -173,8 +146,13 @@ void draw() {
 
   for (int i = 0; i < lightList.size(); i++) {
     
+    // get light object
     Light light = (Light) lightList.get(i);
     
+    // run update function
+    light.update();
+    
+    // get center of mass
     kinect.getCoM(light.userId, pos);
     
     if(pos.x != 0 && pos.y != 0 && pos.z != 0) {
@@ -291,7 +269,7 @@ void onLostUser(int userId) {
       if(debug) {
         println("*");
         println("remove userid: "+userId);
-      }    
+      }
             
       lightList.remove(i);
       
@@ -301,15 +279,23 @@ void onLostUser(int userId) {
   
 }
 
-// change slider speed
-void keyPressed() {
+// activate skeleton tracking 
+void onEndCalibration(int userId, boolean successfull) {
   
-  if (keyCode == UP) { 
-    sliderSpeed += 2;
+  println("onEndCalibration - userId: " + userId + ", successfull: " + successfull);
+  
+  if(successfull)
+  {
+    println("User calibrated");
+    kinect.startTrackingSkeleton(userId); 
   }
-  if (keyCode == DOWN) { 
-    sliderSpeed -= 2;
-  }  
+  else 
+  { 
+    println("Failed to calibrate user");
+    println("  Start pose detection");
+    
+    kinect.startPoseDetection("Psi",userId);
+  }
 }
 
 // stop application

@@ -1,6 +1,6 @@
 class Light {
  
-  PVector     position, direction, rightHandPos;
+  PVector     position, direction;
   ArrayList   lightWay;
     
   float       startDeg = 0.0;
@@ -11,8 +11,10 @@ class Light {
   
   color       c;
   
-  int         instrument,userId;
+  int         userId;
   int         currentBeatIndex = 0;
+  int         posSlider = 0;
+  int         sliderSpeed = 10;
   
   float       currentBeatSection = 0;
   float       currentBeatSection_w = 0;
@@ -51,11 +53,36 @@ class Light {
     c = color(r,g,b);
   }
   
-  // play sound
-  void soundUpdate() {
+  void update() {
     
     // check if user is calibrated 
     isCalibrated = kinect.isCalibratedSkeleton(this.userId);
+    
+    // update slider position
+    posSlider += sliderSpeed;
+    
+    if(posSlider > width) {
+      playSound = true;
+      posSlider = 0;
+    }
+
+    if(isCalibrated) {
+      
+      PVector rightHandPos = new PVector();
+      
+      // update y-position of the right hand
+      kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND, rightHandPos);
+      
+      println(rightHandPos);
+      
+      fill(255);
+      ellipse(rightHandPos.x,rightHandPos.y,20,20);
+    }
+    
+  }
+  
+  // play sound
+  void soundUpdate() {
         
     // check if user is on the scene
     if(isLightOnScene()) {
