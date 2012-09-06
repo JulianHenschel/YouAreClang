@@ -71,12 +71,13 @@ class Light {
     if(isCalibrated) {
       
       PVector rightHandPos = new PVector();
-      kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND, rightHandPos);
-      
-      float newSliderSpeed = map(rightHandPos.y,-height/2,height/2,30,200);
-      
-      sliderSpeed = (int)newSliderSpeed;
-      
+      float quality = kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND, rightHandPos);      
+            
+      if(quality > 0.5) {
+        
+        float newSliderSpeed = map(rightHandPos.y,-height/2,height/2,30,200);
+        sliderSpeed = (int)newSliderSpeed;
+      } 
     }
     
   }
