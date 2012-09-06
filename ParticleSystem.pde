@@ -1,87 +1,119 @@
-public class particleSystem {
+class ParticleSystem {
   
-  PVector position;
+  int particles = 500;
   
-  ArrayList particles;
+  int[] dest = new int[particles];
+  PVector[] pos = new PVector[particles];
   
-  int particleCount = 100;
-  int time = 1;
-  
-  color c;
-  
-  // particleSystem constructor
-  particleSystem(float theX, float theY, color c) {
-       
-    position = new PVector(theX,theY);
-    particles = new ArrayList();
+  ParticleSystem() {
     
-    c = c;
+    // init positions
+    for(int i = 0; i < particles; i++) {
+      
+      pos[i] = new PVector(random(-width/2,width/2),random(-height/2,height/2));  
+      dest[i] = -1;
+    }
+    
+  }
+  
+  void update() {
+    
+    if(lightList.size() > 1) {
+      
+      for(int i = 0; i < particles; i++) {
         
-    for(int i = 0; i < particleCount; i++) {
-      
-      float r, phi, x, y, xx, yy;
-      r = random(8)+10;
+        if(dest[i] == -1) {
+          getRandomDestination(i);
+        }
+        
+        PVector destination = getLightPositionFromUserId(dest[i]);
+        
+        if(destination.x == 0 && destination.y == 0) {
+          dest[i] = -1;
+          break;
+        }
+        
+        PVector velocity = new PVector(0,0);
+        PVector acceleration;
+        
+        PVector dir = PVector.sub(destination,pos[i]);
+                dir.normalize();
+                dir.mult(random(5,10));
+                
+        acceleration = dir;
+    
+        velocity.add(acceleration);
+        velocity.limit(500);
+        
+        pos[i].add(velocity);
 
-      phi = random(TWO_PI);
+        float distance = PVector.dist(destination,pos[i]);
+        
+        if(distance < 50) {
+          getRandomDestination(i);
+        }
+               
+      }
       
-      x = position.x+r*cos(phi);
-      y = position.y+r*sin(phi);
-      
-      xx = position.x+r*cos(phi+0.1);
-      yy = position.y+r*sin(phi+0.1);
-      
-      particles.add(new particle( x, y, 10, findAngle(x-xx,y-yy), 1 ));
     }
+  }
+  
+  void getRandomDestination(int index) {
+    
+    int[] ids = new int[lightList.size()];
+    
+    for(int i = 0; i < lightList.size(); i++) {
+      
+      Light l = (Light) lightList.get(i);
+      ids[i] = l.userId;
+    }
+    
+    int randomId = (int)random(0,lightList.size());
+    
+    dest[index] = ids[randomId];
     
   }
   
-  // update particles
-  void update(float x, float y, color cl) {
+  PVector getLightPositionFromUserId(int id) {
     
-    c = cl;
+    PVector p = new PVector(0,0);
     
-    position.x = x;
-    position.y = y;
-    
-    float r;
-
-    for (int i = particles.size()-1; i >= 0; i--) { 
+    for(int i = 0; i < lightList.size(); i++) {
+        
+      Light l = (Light) lightList.get(i);
       
-      particle p = (particle) particles.get(i);
-      
-      p.gravitate( new particle( position.x, position.y, 0, 0, 1000 ) );
-      p.deteriorate();
-      p.update();
-      
-      r = float(i) / particleCount;
-           
-      stroke( c, 200 );
-            
-      p.display();
+      if(l.userId == id) {
+        p = l.position;
+        break;
+      }
     }
     
+    return p;
   }
   
-  // reset particles
-  void reset() {
+  void display() {
     
-    for (int i = particles.size()-1; i >= 0; i--) {
-      
-      particle p = (particle) particles.get(i);
-      
-      float r, phi, x, y, xx, yy;
-      r = random(8)+10;
-
-      phi = random(TWO_PI);
-      
-      x = position.x + r*cos(phi);
-      y = position.y + r*sin(phi);
-
-      xx = position.x + r*cos(phi+0.01);
-      yy = position.y + r*sin(phi+0.01);
-
-      p.reset(x, y, 10, findAngle(x-xx,y-yy), 1);
+    update();
+    
+    for(int i = 0; i < particles; i++) {
+      stroke(getColor(i));
+      strokeWeight(1);
+      point(pos[i].x,pos[i].y);
     }
     
+  } 
+  
+  color getColor(int i) {
+    
+    PVector position = pos[i];
+  
+    float centerX = width/2;
+    
+    int r = 63 + Math.round( ( 1 - Math.min( position.x / centerX, 1 ) ) * 189 );
+    int g = 63 + Math.round( Math.abs( (position.x > centerX ? position.x-(centerX*2) : position.x) / centerX ) * 189 );
+    int b = 63 + Math.round( Math.max(( ( position.x - centerX ) / centerX ), 0 ) * 189 );
+
+    return color(r,g,b);
   }
+  
 }

@@ -24,9 +24,7 @@ class Light {
   boolean     isCalibrated = false;
   
   String      randomSound;
-    
-  particleSystem ps;
-  
+      
   // light constructor   
   Light(int id) {
      
@@ -34,9 +32,7 @@ class Light {
     direction = new PVector();
     
     userId = id;
-    
-    ps = new particleSystem(position.x,position.y,c);
-    
+        
     lightWay = new ArrayList();
   }
   
@@ -104,9 +100,7 @@ class Light {
           }
           
           foregroundSounds[(int)currentBeatSection][(int)currentBeatSection_w].trigger();
-          
-          ps.reset();
-          
+                    
           playSound = false;
           
         }
@@ -148,9 +142,7 @@ class Light {
     setColor();
     setBeatSection();
     drawLightWay();
-    
-    ps.update(position.x, position.y, c);
-    
+        
     int arc_radius = 120;
     
     noStroke();

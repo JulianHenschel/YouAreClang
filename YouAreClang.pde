@@ -12,6 +12,7 @@ SimpleOpenNI    kinect;
 ControlP5       controlP5;
 FullScreen      fs;
 Minim           minim;
+ParticleSystem  ps;
 
 AudioSample[][] foregroundSounds;
 
@@ -44,8 +45,12 @@ void setup() {
   
   frameRate(60);
     
+  // create new arraylist
   lightList = new ArrayList();
-      
+  
+  // init particlesystem object
+  ps = new ParticleSystem();    
+  
   /* ---------------------------------------------------------------------------- */
   
   // init controlP5 setup
@@ -177,6 +182,10 @@ void draw() {
     }
     
   }
+  
+  /* ---------------------------------------------------------------------------- */
+  
+  ps.display();
 
   /* ---------------------------------------------------------------------------- */
   
@@ -219,7 +228,10 @@ void draw() {
   }
   
   /* ---------------------------------------------------------------------------- */
-
+  
+  // set title
+  frame.setTitle(int(frameRate) + " fps");
+  
 }
 
 // return the number of users on scene
@@ -259,6 +271,14 @@ void onNewUser(int userId) {
 
 // remove object from lightlist
 void onLostUser(int userId) {
+  
+  // delete particle destination for this user
+  for(int i = 0; i < ps.particles; i++) {
+    
+    if(ps.dest[i] == userId) {
+      ps.dest[i] = -1;
+    }
+  }
   
   for (int i = lightList.size()-1; i >= 0; i--) {
 
