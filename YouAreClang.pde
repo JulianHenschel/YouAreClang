@@ -1,6 +1,6 @@
 // You Are Clang
 // A project by Julian Henschel and Martin Ecker
-// 11/2011
+// 09/2012
 
 import processing.opengl.*;
 import SimpleOpenNI.*;
@@ -20,7 +20,7 @@ int         w = 1440;
 int         h = 900;
 
 int         bufferSize = 1024;
-int         projection = 1;
+int         projection = 0;
 int         sections = 4;
 int         sections_w = 6;
 

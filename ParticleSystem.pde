@@ -38,7 +38,7 @@ class ParticleSystem {
         
         PVector dir = PVector.sub(destination,pos[i]);
                 dir.normalize();
-                dir.mult(random(5,10));
+                dir.mult(random(5,15));
                 
         acceleration = dir;
     
