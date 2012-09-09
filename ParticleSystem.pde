@@ -1,16 +1,25 @@
 class ParticleSystem {
   
   int particles = 500;
-  
   int[] dest = new int[particles];
-  PVector[] pos = new PVector[particles];
   
+  Node[] nodeList;
+
   ParticleSystem() {
+    
+    // init particles
+    nodeList = new Node[particles];
     
     // init positions
     for(int i = 0; i < particles; i++) {
       
-      pos[i] = new PVector(random(-width/2,width/2),random(-height/2,height/2));  
+      nodeList[i] = new Node(); 
+     
+      this.nodeList[i].maxVelocity = random(3,8);
+      this.nodeList[i].setBoundary(0,0,width,height);
+      this.nodeList[i].damping = 0.004;
+     
+      // reset destination 
       dest[i] = -1;
     }
     
@@ -18,7 +27,9 @@ class ParticleSystem {
   
   void update() {
     
-    if(lightList.size() > 1) {
+    if(lightList.size() > 0) {
+      
+      println("test");
       
       for(int i = 0; i < particles; i++) {
         
@@ -33,21 +44,24 @@ class ParticleSystem {
           break;
         }
         
-        PVector velocity = new PVector(0,0);
+        PVector position = new PVector(nodeList[i].x,nodeList[i].y);
         PVector acceleration;
         
-        PVector dir = PVector.sub(destination,pos[i]);
+        PVector dir = PVector.sub(destination,position);
                 dir.normalize();
-                dir.mult(random(5,15));
+                dir.mult(random(0.1,0.5));
                 
         acceleration = dir;
     
-        velocity.add(acceleration);
-        velocity.limit(500);
+        nodeList[i].velocity.add(acceleration);
+        nodeList[i].velocity.limit(10);
         
-        pos[i].add(velocity);
+        position.add(nodeList[i].velocity);
+        
+        nodeList[i].x = position.x;
+        nodeList[i].y = position.y;
 
-        float distance = PVector.dist(destination,pos[i]);
+        float distance = PVector.dist(destination,position);
         
         if(distance < 50) {
           getRandomDestination(i);
@@ -92,20 +106,35 @@ class ParticleSystem {
   }
   
   void display() {
-    
+
     update();
     
     for(int i = 0; i < particles; i++) {
+      
       stroke(getColor(i));
       strokeWeight(1);
-      point(pos[i].x,pos[i].y);
+      
+      //point(nodeList[i].x,nodeList[i].y);
+      displayVector(nodeList[i].velocity,nodeList[i].x,nodeList[i].y,0.5);
     }
     
   } 
   
+  void displayVector(PVector v, float x, float y, float scayl) {
+    
+    pushMatrix();
+    translate(x,y);
+    rotate(v.heading2D());
+    
+      float len = v.mag()*scayl;
+      line(0,0,-len,0);
+    
+    popMatrix();
+  }
+  
   color getColor(int i) {
     
-    PVector position = pos[i];
+    PVector position = new PVector(nodeList[i].x,nodeList[i].y);
   
     float centerX = width/2;
     

@@ -3,6 +3,7 @@
 // 09/2012
 
 import processing.opengl.*;
+import generativedesign.*;
 import SimpleOpenNI.*;
 import controlP5.*;
 import fullscreen.*;
